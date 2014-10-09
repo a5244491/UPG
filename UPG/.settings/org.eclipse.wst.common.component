@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="UPG">
+        <wb-resource deploy-path="/" source-path="/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javacode/config"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javacode/sso"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/javacode/bcsupg"/>
+        <dependent-module archiveName="cas-client-core-3.2.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/tcas/cas-client-core-3.2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-chain-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-chain-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="antlr-2.7.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/antlr-2.7.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ta3-web-3.3.111503.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ta/ta3-web-3.3.111503.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-aop-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-aop-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-svg-dom.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-svg-dom.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hamcrest-all-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/hamcrest-all-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="saaj-impl-1.3.12.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/saaj-impl-1.3.12.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging-1.1.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-logging-1.1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jaxb-api-2.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/jaxb-api-2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-httpclient-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/tcas/commons-httpclient-3.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-3.6-20091214.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/poi-3.6-20091214.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ta3-sysapp-3.3.111503.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ta/ta3-sysapp-3.3.111503.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jaxws-api.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/jaxws-api.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cglib-2.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/cglib-2.2.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-dbcp-1.2.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-dbcp-1.2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-io-2.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-io-2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-anim.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-anim.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="saaj-api-1.3.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/saaj-api-1.3.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-svggen.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-svggen.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jedis-2.1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/jedis-2.1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-tx-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-tx-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="asm-3.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/asm-3.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-extension.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-extension.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="groovy-all-1.7.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/groovy-all-1.7.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-util.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-util.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-ext.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-ext.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-squiggle.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-squiggle.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ehcache-web-2.0.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/ehcache-web-2.0.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jstl-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jstl-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-awt-util.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-awt-util.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-web-3.2.0.M2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-security-web-3.2.0.M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="slf4j-api-1.6.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/slf4j-api-1.6.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="struts2-core-2.3.15.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/struts2-core-2.3.15.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ognl-3.0.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/ognl-3.0.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-web-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-web-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-rasterizer.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-rasterizer.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-cas-client-3.0.1.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/tcas/spring-security-cas-client-3.0.1.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-codec.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-codec.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SimpleCaptcha-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/SimpleCaptcha-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-swing.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-swing.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-taglibs-3.2.0.M2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-security-taglibs-3.2.0.M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="dom4j-1.6.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/dom4j-1.6.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jsch-0.1.49.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/jsch-0.1.49.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jxls-core-0.9.9.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jxls-core-0.9.9.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-transcoder.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-transcoder.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-beanutils-1.8.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-beanutils-1.8.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="asm-tree-3.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/asm-tree-3.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="opensaml-1.1b.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/tcas/opensaml-1.1b.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-data-redis-1.0.1.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/spring-data-redis-1.0.1.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-discovery-0.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-discovery-0.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="struts2-junit-plugin-2.3.15.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/struts2-junit-plugin-2.3.15.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-dom.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-dom.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hamcrest-library-1.3.0RC2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/hamcrest-library-1.3.0RC2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xwork-core-2.3.15.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/xwork-core-2.3.15.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-net-3.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/commons-net-3.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aspectjweaver-1.6.10.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/aspectjweaver-1.6.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="fastjson-1.1.20.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/fastjson-1.1.20.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-jexl-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-jexl-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gson-1.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/gson-1.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pdf-transcoder.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/pdf-transcoder.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="struts2-json-plugin-2.3.15.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/struts2-json-plugin-2.3.15.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-slideshow.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-slideshow.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="velocity-1.7-dep.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/velocity-1.7-dep.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-lang-2.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-lang-2.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-script.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-script.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="backport-util-concurrent-3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/tcas/backport-util-concurrent-3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-digester-2.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-digester-2.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xercesImpl-2.9.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/xercesImpl-2.9.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jta-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jta-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-validator-1.3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-validator-1.3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aopalliance-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/aopalliance-1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-codec-1.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-codec-1.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-parser.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-parser.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-beans-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-beans-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-all-1.8.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jackson-all-1.8.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="profile.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/profile.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="log4j-1.2.15.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/log4j-1.2.15.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ta3-org-3.3.111503.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ta/ta3-org-3.3.111503.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="neethi-2.0.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/neethi-2.0.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xmlsec-1.4.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/xmlsec-1.4.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jsr107cache-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/tcas/jsr107cache-1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="saaj.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/saaj.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="barbecue-1.5-beta1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/barbecue-1.5-beta1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="freemarker-2.3.16.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/freemarker-2.3.16.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-webmvc-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-webmvc-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aspectjrt-1.6.10.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/aspectjrt-1.6.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-fileupload-1.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-fileupload-1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javassist-3.11.0.GA.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/javassist-3.11.0.GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-lang3-3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-lang3-3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-collections-3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-collections-3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ta3-tool-3.3.111503.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ta/ta3-tool-3.3.111503.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="thumbnailator-0.4.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/thumbnailator-0.4.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="bcprov-jdk14-137.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ca/bcprov-jdk14-137.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="struts2-convention-plugin-2.3.15.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/struts2-convention-plugin-2.3.15.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xml-apis.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/xml-apis.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-pool-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-pool-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-context-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-context-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jdom-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jdom-1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-aspects-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-aspects-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-context-support-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-context-support-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-core-3.2.0.M2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-security-core-3.2.0.M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-svgpp.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-svgpp.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="quartz-all-1.6.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/quartz-all-1.6.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jxl-2.6.10.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jxl-2.6.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xalan-2.6.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/xalan-2.6.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ibatis.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/ibatis.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ta3-tag-3.3.112104.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ta/ta3-tag-3.3.112104.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xml-apis.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/xml-apis.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-config-3.2.0.M2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-security-config-3.2.0.M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pinyin4j-2.5.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/pinyin4j-2.5.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ta3-core-3.3.111503.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ta/ta3-core-3.3.111503.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xml-apis-ext.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/xml-apis-ext.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-gvt.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-gvt.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ehcache-1.5.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/tcas/ehcache-1.5.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jaxb-impl-2.2.4-1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/jaxb-impl-2.2.4-1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="asm-commons-3.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/asm-commons-3.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mail.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/mail.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="geronimo-j2ee-management_1.1_spec-1.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/geronimo-j2ee-management_1.1_spec-1.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-bridge.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-bridge.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-ttf2svg.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-ttf2svg.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-orm-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-orm-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jaxrpc.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jaxrpc.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="axis.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/axis.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ehcache-spring-annotations-1.1.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/ehcache-spring-annotations-1.1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-core-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-core-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ehcache-core-2.4.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/ehcache-core-2.4.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="iTrusCertAPI-2.5-beta3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ca/iTrusCertAPI-2.5-beta3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-jms-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-jms-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="png-encoder-1.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/png-encoder-1.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jaxen-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/jaxen-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-jdbc-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-jdbc-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="bcmail-jdk14-137.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ca/bcmail-jdk14-137.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="XmlSchema-1.4.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/XmlSchema-1.4.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging-api-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/commons-logging-api-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xerces_2_5_0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/xerces_2_5_0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-xml.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-xml.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-css.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-css.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="geronimo-jms_1.1_spec-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/geronimo-jms_1.1_spec-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-expression-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ssi/spring-expression-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wss4j-1.5.8.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/wss4j-1.5.8.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-vfs.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/commons-vfs.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="batik-gui-util.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/batik/batik-gui-util.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-5.1.15-bin.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ec/mysql-connector-java-5.1.15-bin.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jaxws-rt-2.1.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/jaxws-rt-2.1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wsdl4j-1.6.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/wsdl4j-1.6.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ta3-print-3.3.111503.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/ta/ta3-print-3.3.111503.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cxf-2.2.10.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/cxf/cxf-2.2.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ojdbc6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/ojdbc6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="slf4j-log4j12-1.6.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/UPG/lib/common/slf4j-log4j12-1.6.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="domain.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/cq/桌面/domain.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="UPG"/>
+        <property name="java-output-path" value="/UPG/build/classes"/>
+    </wb-module>
+</project-modules>

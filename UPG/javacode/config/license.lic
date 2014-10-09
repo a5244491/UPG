@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lbs-licenses>
+    <license-group format="3.0" product="Ta+3.0" release="1.0">
+        <license
+        	licenseVersion="1.0"
+        	desc="授权给四川久远银海软件股份有限公司Ta+3.0核心框架本地化开发人员的License"
+            component="ta3"
+            version="3.0"
+            type="develop"
+            cpus="unlimited"
+            expiration="2020-12-31 00:00:00.0"
+            ip="any"
+            mac="any"
+            sessions="99999999"
+            units="unlimited"
+            serviceCount="unlimited"
+            loginCount="unlimited"
+            licensee="Ta+3.0核心框架本地化开发"
+            serial="rmUzWqQrYQmyYvFT1de0faT7JWvJJ3Ja-00-11"
+            signature="xarBv/IIey+KpKU8ts+UwtbqqgtkzzTo5B8bEMwia36iBtwJonp+TfcY/CvohIpP7be7QPDX9Olwk4Xx2cnENNNJErpD1djQ1iKacfwULQH09CoIFh2wiH5rNgy67WKlScFnB4jJWNVI6mxLafkkK9OUUYKq3t0944iG7HM+hDb/rTBqCHESuOSJB90KgxEeNhYN8fIxepSpC/CbAAieALSWTvLD3rToEF2/PA4enE2zCGRrCPEGlDux2VBeJnVYionQqs1pzrB12TUDQXY8MDaKInVGx/eDKXwPqFOjH+RRy8K1GEJ8iGfqZYg+PIkoHh9H1D4pkh9xyv1xogyiScxIMjm4T7Uw/4LhPl1H9G847B7DM/DwgAoDUjYHGxTb"
+        />        
+    </license-group>
+</lbs-licenses>

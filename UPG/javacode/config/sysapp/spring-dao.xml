@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+		<!-- 操作人员信息 Dao -->
+	<bean id="userDao" class="com.yinhai.yhcip.app.organization.dao.sqlmap.UserDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 人员角色作用域关联信息 Dao -->
+	<bean id="roleScopeUserRelationshipDao" class="com.yinhai.yhcip.app.organization.dao.sqlmap.RoleScopeUserRelationshipDaoSqlMap">
+		<property name="domainObjectName" value="RoleScopeUserRelationship" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 角色作用域信息 Dao -->
+	<bean id="roleScopeDao" class="com.yinhai.yhcip.app.organization.dao.sqlmap.RoleScopeDaoSqlMap">
+		<property name="domainObjectName" value="RoleScope" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 角色信息 Dao -->
+	<bean id="roleDao" class="com.yinhai.yhcip.app.organization.dao.sqlmap.RoleDaoSqlMap">
+		<property name="domainObjectName" value="Role" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 部门信息 Dao -->
+	<bean id="departmentDao" class="com.yinhai.yhcip.app.organization.dao.sqlmap.DepartmentDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 角色作用域委派信息 Dao -->
+	<bean id="consignationRoleDao" class="com.yinhai.yhcip.app.organization.dao.sqlmap.ConsignationRoleDaoSqlMap">
+		<property name="domainObjectName" value="ConsignationRole" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 角色作用域操作权限授权信息 Dao -->
+	<bean id="roleScopeOperationDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.RoleScopeOperationDaoSqlMap">
+		<property name="domainObjectName" value="RoleScopeOperation" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 角色作用域授权权限授权信息 Dao -->
+	<bean id="roleScopeGrantingDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.RoleScopeGrantingDaoSqlMap">
+		<property name="domainObjectName" value="RoleScopeGranting" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 角色操作权限授权信息 Dao -->
+	<bean id="roleOperationDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.RoleOperationDaoSqlMap">
+		<property name="domainObjectName" value="RoleOperation" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 角色授权权限授权信息 Dao -->
+	<bean id="roleGrantingDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.RoleGrantingDaoSqlMap">
+		<property name="domainObjectName" value="RoleGranting" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 权限信息 Dao -->
+	<bean id="permissionDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.PermissionDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 页面控件信息 Dao -->
+	<bean id="pageItemDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.PageItemDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 页面信息 Dao -->
+	<bean id="pageDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.PageDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 应用菜单结构 Dao -->
+	<bean id="menuDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.MenuDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 功能互斥定义 Dao -->
+	<bean id="functionMutexItemDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.FunctionMutexItemDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 功能互斥信息 Dao -->
+	<bean id="functionMutexDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.FunctionMutexDaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 操作权限委派信息 Dao -->
+	<bean id="consignedOperationDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.ConsignedOperationDaoSqlMap">
+		<property name="domainObjectName" value="ConsignedOperation" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 授权权限委派信息 Dao -->
+	<bean id="consignedGrantingDao" class="com.yinhai.yhcip.app.security.dao.sqlmap.ConsignedGrantingDaoSqlMap">
+		<property name="domainObjectName" value="ConsignedGranting" />
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>	
+</beans>

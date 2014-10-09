@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	
+	
+	<bean id="absUpgDao" abstract="true" class="com.yinhai.sysframework.persistence.ibatis.AbstractDaoSupport" init-method="initialize">
+   		<property name="sqlMapClient"><ref bean="sqlMapClientBcsupg"/></property>
+   		<property name="sqlExecutor"><ref bean="sqlExecutor"/></property>
+   	</bean>
+   	<bean id="bcsupgDao" class="com.yinhai.sysframework.persistence.ibatis.BaseDaoSupport" parent="absUpgDao" >
+	</bean>
+	
+	
+	<bean id="absBcsDao" abstract="true" class="com.yinhai.sysframework.persistence.ibatis.AbstractDaoSupport" init-method="initialize">
+   		<property name="sqlMapClient"><ref bean="sqlMapClientBcs"/></property>
+   		<property name="sqlExecutor"><ref bean="sqlExecutor"/></property>
+   	</bean>
+   	
+   	<bean id="bcsDao" class="com.yinhai.sysframework.persistence.ibatis.BaseDaoSupport" parent="absBcsDao" >
+	</bean>
+	
+   	
+   	<bean id="baseUPGService" class="com.yinhai.bcs.upg.common.service.BaseUPGService">
+		<property name="dao">
+			<ref bean="dao"/>
+		</property>
+		<property name="bcsupgDao">
+			<ref bean="bcsupgDao"/>
+		</property>
+		<property name="bcsDao">
+			<ref bean="bcsDao"/>
+		</property>
+	</bean>   	
+	
+	
+	<bean id="clientService" class="com.yinhai.bcs.upg.dbservice.ClientService" parent="baseUPGService">
+		<!-- <property name="redisObjAdapter">
+			<ref bean="redisObjAdapter"/>	
+		</property> -->
+	</bean>
+	
+	<bean id="payRecordsService" class="com.yinhai.bcs.upg.dbservice.PayRecordsService" parent="baseUPGService">
+	</bean>
+	
+	<bean id="serviceService" class="com.yinhai.bcs.upg.dbservice.ServiceService" parent="baseUPGService">
+	</bean>
+	
+	<bean id="pay3Service" class="com.yinhai.bcs.upg.dbservice.Pay3Service" parent="baseUPGService">
+	</bean>
+	
+	<!-- <bean id="cacheService" class="com.yinhai.bcs.upg.dbservice.CacheService" parent="baseUPGService">
+		<property name="redisObjAdapter">
+			<ref bean="redisObjAdapter"/>	
+		</property>
+	</bean> -->
+</beans>

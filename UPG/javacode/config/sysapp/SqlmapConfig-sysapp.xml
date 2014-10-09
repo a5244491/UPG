@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+<!--cacheModelsEnabled 是否启用SqlMapClient上的缓存机制。建议设为"true" -->
+<!--enhancementEnabled 是否针对POJO启用字节码增强机制以提升getter/setter的调用效能，避免使用JavaReflect所带来的性能开销。同时，这也为Lazy Loading带来了极大的性能提升。建议设为"true" -->
+<!--errorTracingEnabled 是否启用错误日志，在开发期间建议设为"true"以方便调试 -->
+  <settings useStatementNamespaces="true"/>
+  
+  <sqlMap resource="com/yinhai/sysapp/sqlmap/AD52.xml"/>
+  <sqlMap resource="com/yinhai/sysapp/sqlmap/comMenu.xml"/>
+  
+  <!--系统管理和组织机构-->
+	<!-- 操作人员信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/User.xml"/>
+	<!-- 部门信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/Department.xml"/>
+	<!-- 角色信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/Role.xml"/>
+	<!-- 角色作用域信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/RoleScope.xml"/>
+	<!-- 人员角色作用域关联信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/RoleScopeUserRelationship.xml"/>
+	<!-- 角色作用域委派信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/ConsignationRole.xml"/>
+	<!-- 应用菜单结构 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/Menu.xml"/>
+	<!-- 页面信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/Page.xml"/>
+	<!-- 页面控件信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/PageItem.xml"/>
+	<!-- 权限信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/Permission.xml"/>
+	<!-- 角色操作权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleOperation.xml"/>
+	<!-- 角色作用域操作权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleScopeOperation.xml"/>
+	<!-- 角色授权权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleGranting.xml"/>
+	<!-- 角色作用域授权权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleScopeGranting.xml"/>
+	<!-- 操作权限委派信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/ConsignedOperation.xml"/>
+	<!-- 授权权限委派信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/ConsignedGranting.xml"/>
+	<!-- 功能互斥信息 
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/FunctionMutex.xml"/>
+	-->
+	<!-- 功能互斥定义
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/FunctionMutexItem.xml"/>
+	 -->
+	<!-- 用户定义快捷菜单 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/Qmenu.xml"/>
+	
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Ae08.xml"/>
+	<!-- 系统监控  -->
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Monitor.xml"/>
+	<!-- 业务回退相关SQL语句 -->
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Rollback.xml"/>
+	<!-- 当前登陆用户信息 -->
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Ad60.xml"/>
+    <!-- 系统日志  -->
+	<sqlMap resource="com/yinhai/sysapp/log4j/domain/Yhcip_log_system.xml"/>
+	<!--服务器管理-->
+	<sqlMap resource="com/yinhai/sysapp/log4j/domain/Yhcip_log_server.xml"/>
+	<!--类管理-->
+	<sqlMap resource="com/yinhai/sysapp/log4j/domain/Yhcip_log_class.xml"/>
+	<!--Oracle定时服务-->
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/OracleJob.xml"/>
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Qrtz_job_msgs.xml"/>
+	   <!-- 一键功能查询 -->
+  	<sqlMap resource="com/yinhai/tool/javafactory/ftldomain/Standard.xml"/>
+	<!-- <sqlMap resource="com/yinhai/sysapp/sqlmap/Tb_freeprint.xml"/> -->
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Yhcip_serveraddress.xml"/>
+	<sqlMap resource="com/yinhai/webframework/impexp/Yhcip_log_error.xml"/> 
+	
+	  <sqlMap resource="com/yinhai/sysapp/sqlmap/Ad10.xml"/>
+ 		<sqlMap resource="com/yinhai/sysapp/sqlmap/Ta_jb_olddata.xml"/> 	
+</sqlMapConfig>

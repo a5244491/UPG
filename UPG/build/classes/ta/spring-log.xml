@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+    
+     <!--负责记录有异常发生时的信息-->
+	  <bean id="throwsAdvice" class="com.yinhai.sysapp.log4j.service.ExceptionHandler"/>
+	<!-- 
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>  
+    <bean id="exceptionHandlereAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice">
+            <ref bean="throwsAdvice"/>
+        </property>
+        <property name="patterns">
+            <value>.*.*</value>
+        </property>
+  </bean>
+   -->	 
+	  <aop:config>
+		<aop:aspect ref="throwsAdvice">
+			<aop:pointcut id="logPointcut" expression="execution(* com.yinhai.ta..*.*(..))" />
+			<aop:after-throwing method="afterThrowing" throwing="throwable" pointcut-ref="logPointcut"/>
+		</aop:aspect>
+	</aop:config>
+
+	 <!-- 
+	  <bean id="beanLogAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+            <property name="beanNames">
+               <list>
+               	 <value>*Service</value>
+               	 <value>/*</value>
+                </list>
+            </property>
+            <property name="interceptorNames">
+                 <value>throwsAdvice</value>
+            </property>
+		</bean>
+	    -->    
+   <bean id="logService"  parent="transactionProxy">
+		<property name="target">
+			<bean class="com.yinhai.sysapp.log4j.service.impl.LogServiceImpl" parent="abstractBaseService">
+
+			</bean>
+		</property>
+	</bean>
+	
+	 <bean id="serverMgrService"  parent="transactionProxy">
+		<property name="target">
+			<bean class="com.yinhai.sysapp.log4j.service.impl.ServerMgrServiceImpl" parent="abstractBaseService">
+
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="classMgrService"  parent="transactionProxy">
+		<property name="target">
+			<bean class="com.yinhai.sysapp.log4j.service.impl.ClassMgrServiceImpl" parent="abstractBaseService">
+
+			</bean>
+		</property>
+	</bean>
+		
+</beans>

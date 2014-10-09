@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<bean id="entityService"
+		class="com.yinhai.yhcip.app.organization.service.impl.DbOrganizationEntityServiceImpl" parent="abstractBaseService">
+		<property name="userDao">
+			<ref bean="userDao" />
+		</property>
+		<property name="departDao">
+			<ref bean="departmentDao" />
+		</property>
+		<property name="roleDao">
+			<ref bean="roleDao" />
+		</property>
+		<property name="roleScopeDao">
+			<ref bean="roleScopeDao" />
+		</property>
+		<property name="consignationRoleDao">
+			<ref bean="consignationRoleDao" />
+		</property>
+		<property name="frameworkUidService">
+			<ref bean="frameworkUidService" />
+		</property>
+		<property name="departUidService">
+			<ref bean="departUidService" />
+		</property>
+		<property name="relationshipService">
+			<ref bean="relationshipService" />
+		</property>
+		<property name="operationSecurityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="grantingSecurityService">
+			<ref bean="grantingSecurityService" />
+		</property>
+		<property name="roleScopeOperationDao">
+			<ref bean="roleScopeOperationDao" />
+		</property>
+		<property name="roleScopeGrantingDao">
+			<ref bean="roleScopeGrantingDao" />
+		</property>
+		<property name="consignedGrantingDao">
+			<ref bean="consignedGrantingDao" />
+		</property>
+		<property name="consignedOperationDao">
+			<ref bean="consignedOperationDao" />
+		</property>
+		<property name="relationshipDao">
+			<ref bean="roleScopeUserRelationshipDao" />
+		</property>
+	</bean>
+	<bean id="authenticateService"
+		class="com.yinhai.yhcip.app.organization.service.impl.DbAuthenticateServiceImpl" parent="abstractBaseService">
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="relationshipService">
+			<ref bean="relationshipService" />
+		</property>
+	</bean>
+	<bean id="relationshipService"
+		class="com.yinhai.yhcip.app.organization.service.impl.DbOrganizationRelationshipServiceImpl" parent="abstractBaseService">
+		<property name="relationshipDao">
+			<ref bean="roleScopeUserRelationshipDao" />
+		</property>
+		<property name="consignationRoleDao">
+			<ref bean="consignationRoleDao" />
+		</property>
+		<property name="frameworkUidService">
+			<ref bean="frameworkUidService" />
+		</property>
+		<property name="operationSecurityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="grantingSecurityService">
+			<ref bean="grantingSecurityService" />
+		</property>
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+	</bean>
+	<bean id="organization4FrameworkService"
+		class="com.yinhai.yhcip.app.organization.service.impl.Organization4FrameworkServiceImpl" parent="abstractBaseService">
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="relationshipService">
+			<ref bean="relationshipService" />
+		</property>
+		<property name="authenticateService">
+			<ref bean="authenticateService" />
+		</property>
+	</bean>
+
+	<bean id="resourceService"
+		class="com.yinhai.yhcip.app.security.service.impl.DbResourceServiceImpl" parent="abstractBaseService">
+		<property name="menuDao">
+			<ref bean="menuDao" />
+		</property>
+		<property name="pageDao">
+			<ref bean="pageDao" />
+		</property>
+		<property name="pageItemDao">
+			<ref bean="pageItemDao" />
+		</property>
+		<property name="roleGrantingDao">
+			<ref bean="roleGrantingDao" />
+		</property>
+		<property name="roleOperationDao">
+			<ref bean="roleOperationDao" />
+		</property>
+		<property name="roleScopeGrantingDao">
+			<ref bean="roleScopeGrantingDao" />
+		</property>
+		<property name="roleScopeOperationDao">
+			<ref bean="roleScopeOperationDao" />
+		</property>
+		<property name="consignedGrantingDao">
+			<ref bean="consignedGrantingDao" />
+		</property>
+		<property name="consignedOperationDao">
+			<ref bean="consignedOperationDao" />
+		</property>
+		<property name="resourceUidService">
+			<ref bean="resourceUidService" />
+		</property>
+	</bean>
+	<bean id="operationSecurityService"
+		class="com.yinhai.yhcip.app.security.service.impl.DbOperationSecurityServiceImpl" parent="abstractBaseService">
+		<property name="nohidden" value="true" /> <!-- 是否在权限树中显示隐藏菜单,true表示显示 -->
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="permissionDao">
+			<ref bean="permissionDao" />
+		</property>
+		<property name="roleScopeOperationDao">
+			<ref bean="roleScopeOperationDao" />
+		</property>
+		<property name="roleOperationDao">
+			<ref bean="roleOperationDao" />
+		</property>
+		<property name="consignedOperationDao">
+			<ref bean="consignedOperationDao" />
+		</property>
+	</bean>
+	<bean id="grantingSecurityService"
+		class="com.yinhai.yhcip.app.security.service.impl.DbGrantingSecurityServiceImpl" parent="abstractBaseService">
+		<property name="nohidden" value="true" /> <!-- 是否在权限树中显示隐藏菜单,true表示显示 -->
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="permissionDao">
+			<ref bean="permissionDao" />
+		</property>
+		<property name="roleScopeGrantingDao">
+			<ref bean="roleScopeGrantingDao" />
+		</property>
+		<property name="roleGrantingDao">
+			<ref bean="roleGrantingDao" />
+		</property>
+		<property name="consignedGrantingDao">
+			<ref bean="consignedGrantingDao" />
+		</property>
+	</bean>
+	<bean id="security4FrameworkService"
+		class="com.yinhai.yhcip.app.security.service.impl.Security4FrameworkServiceImpl" parent="abstractBaseService">
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="operationSecurityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="grantingSecurityService">
+			<ref bean="grantingSecurityService" />
+		</property>
+		<property name="organizationService">
+			<ref bean="organization4FrameworkService" />
+		</property>		
+	</bean>
+	<!-- bean id="functionMutexService"
+		class="com.yinhai.yhcip.app.security.service.impl.FunctionMutexServiceImpl" parent="abstractBaseService">
+		<property name="frameworkUidService">
+			<ref bean="frameworkUidService" />
+		</property>
+		<property name="functionMutexDao">
+			<ref bean="functionMutexDao" />
+		</property>
+		<property name="functionMutexItemDao">
+			<ref bean="functionMutexItemDao" />
+		</property>
+	</bean> -->
+	<bean id="resourceTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.ResourceTreeServiceImpl" parent="abstractBaseService">
+		<property name="includePage" value="true" />
+		<property name="securityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="descPriority">
+			<value>true</value>
+		</property><!-- 
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="资源" />
+				<entry key="title" value="资源" />
+				<entry key="nodeIcon" value="project-closed.gif" />
+				<entry key="url" value="menuList.do?reqCode=list&amp;dto(__menuId)=" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.security.domain.Menu">
+					<map>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+						<entry key="url" value="menuList.do?reqCode=list&amp;dto(__menuId)=" />
+					</map>
+				</entry>
+				<entry
+					key="com.yinhai.yhcip.app.security.domain.Page">
+					<map>
+						<entry key="nodeIcon" value="file.png" />
+						<entry key="url" value="pageContent.do?reqCode=pageContent&amp;dto(__pageId)=" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.security.domain.PageItem">
+					<map>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+						<entry key="url" value="pageItemList.do?reqCode=list&amp;dto(__pageItemId)=" />
+					</map>
+				</entry>
+			</map>
+		</property> -->
+	</bean>
+	<!-- 
+	<bean id="resourceSelectTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.ResourceTreeServiceImpl" parent="abstractBaseService">
+		<property name="includePage" value="false" />
+		<property name="securityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="descPriority">
+			<value>true</value>
+		</property>
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="资源" />
+				<entry key="title" value="资源" />
+				<entry key="nodeIcon" value="project-closed.gif" />
+				<entry key="selected">
+					<bean class="java.lang.Boolean">
+						<constructor-arg value="true"/>
+					</bean>
+				</entry>
+				<entry key="url" value="menuList.do?reqCode=list&amp;dto(__menuId)=" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.security.domain.Menu">
+					<map>
+						<entry key="selected">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.security.domain.Page">
+					<map>
+						<entry key="selected">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="file.png" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.security.domain.PageItem">
+					<map>
+						<entry key="selected">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="userQmenuTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.ResourceTreeServiceImpl" parent="abstractBaseService">
+		<property name="includePage" value="false" />
+		<property name="securityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="descPriority" value="false"/>
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="业务功能" />
+				<entry key="title" value="业务功能" />
+				<entry key="nodeIcon" value="project-closed.gif" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.security.domain.Menu">
+					<map>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="rollbackFunctionTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.ResourceTreeServiceImpl" parent="abstractBaseService">
+		<property name="includePage" value="false" />
+		<property name="securityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="descPriority" value="true"/>
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="资源" />
+				<entry key="title" value="资源" />
+				<entry key="nodeIcon" value="project-closed.gif" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.security.domain.Menu">
+					<map>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+						<entry key="url" value="rollbackRestrictRuleManagementAction.do?reqCode=query&amp;dto(functionId)="/>
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="exclusiveFunctionTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.ResourceTreeServiceImpl" parent="abstractBaseService">
+		<property name="includePage" value="false" />
+		<property name="securityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="descPriority" value="true"/>
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="资源" />
+				<entry key="title" value="资源" />
+				<entry key="nodeIcon" value="project-closed.gif" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.security.domain.Menu">
+					<map>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+						<entry key="url" value="exclusiveRestrictRuleManagementAction.do?reqCode=query&amp;dto(functionId)="/>
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean> -->
+	<bean id="resourceOperateTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.ResourceTreeServiceImpl">
+		<property name="includePage" value="false" />
+		<property name="securityService">
+			<ref bean="operationSecurityService" />
+		</property>
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property>
+		<property name="descPriority">
+			<value>true</value>
+		</property><!-- 
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="资源" />
+				<entry key="title" value="资源" />
+				<entry key="nodeIcon" value="project-closed.gif" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.security.domain.Menu">
+					<map>
+						<entry key="allowCheck">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.security.domain.Page">
+					<map>
+						<entry key="allowCheck">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="file.png" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.security.domain.PageItem">
+					<map>
+						<entry key="allowCheck">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+					</map>
+				</entry>
+			</map>
+		</property> -->
+	</bean>
+	<bean id="resourceGrantingTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.ResourceGrantingTreeServiceImpl" parent="abstractBaseService">
+		<!-- <property name="includePage" value="false" /> -->
+		<property name="securityService">
+			<ref bean="grantingSecurityService" />
+		</property><!-- 
+		<property name="resourceService">
+			<ref bean="resourceService" />
+		</property> -->
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="descPriority">
+			<value>true</value>
+		</property>
+		<property name="organizationService">
+			<ref bean="organization4FrameworkService" />
+		</property>		
+		
+		<!-- 
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="资源" />
+				<entry key="title" value="资源" />
+				<entry key="nodeIcon" value="project-closed.gif" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.security.domain.Menu">
+					<map>
+						<entry key="allowCheck">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.security.domain.Page">
+					<map>
+						<entry key="allowCheck">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="file.png" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.security.domain.PageItem">
+					<map>
+						<entry key="allowCheck">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="requirement_management.gif" />
+					</map>
+				</entry>
+			</map>
+		</property> -->
+	</bean>
+	<bean id="organizationTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.OrganizationTreeServiceImpl" parent="abstractBaseService">
+		<property name="includeRoleScope" value="true" />
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property><!-- 
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="组织机构" />
+				<entry key="title" value="组织机构" />
+				<entry key="url" value="organizationManagement.do?reqCode=departManagement&amp;dto(__departId)="/>
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.organization.domain.Department">
+					<map>
+						<entry key="nodeIcon" value="department_1.jpg" />
+						<entry key="url" value="organizationManagement.do?reqCode=departManagement&amp;dto(__departId)=" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.organization.domain.RoleScopeInfo">
+					<map>
+						<entry key="url" value="roleScopeList.do" />
+					</map>
+				</entry>
+			</map>
+		</property> -->
+	</bean>
+	<bean id="organizationSelectTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.OrganizationTreeServiceImpl" parent="abstractBaseService">
+		<property name="includeRoleScope" value="false" />
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property><!-- 
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="组织机构" />
+				<entry key="title" value="组织机构" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.organization.domain.Department">
+					<map>
+						<entry key="selected">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+					</map>
+				</entry>
+			</map>
+		</property> -->
+	</bean>
+	<!-- 选择用户树
+	<bean id="userSelectTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.OrganizationTreeServiceImpl">
+		<property name="includeRoleScope" value="false" />
+		<property name="includeUser" value="false" />
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="组织机构" />
+				<entry key="title" value="组织机构" />
+				<entry key="nodeIcon" value="department_1.jpg" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.organization.domain.Department">
+					<map>
+						<entry key="nodeIcon" value="project_track.gif" />
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.organization.domain.User">
+					<map>
+						<entry key="selected">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="project_plan.gif" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="roleSelectTreeService"
+		class="com.yinhai.yhcip.app.tree.service.impl.OrganizationTreeServiceImpl" parent="abstractBaseService">
+		<property name="includeRoleScope" value="true" />
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="组织机构" />
+				<entry key="title" value="组织机构" />
+				<entry key="nodeIcon" value="department_1.jpg" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.organization.domain.Department">
+					<map>
+						<entry key="nodeIcon" value="department_1.jpg"/>
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.organization.domain.RoleScopeInfo">
+					<map>
+						<entry key="allowCheck">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="roleScope.png"/>
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="roleSelectTreeDivService"
+		class="com.yinhai.yhcip.app.tree.service.impl.OrganizationTreeServiceImpl" parent="abstractBaseService">
+		<property name="includeRoleScope" value="true" />
+		<property name="entityService">
+			<ref bean="entityService" />
+		</property>
+		<property name="treeRootTemplet">
+			<map>
+				<entry key="id" value="__ROOT" />
+				<entry key="name" value="组织机构" />
+				<entry key="title" value="组织机构" />
+				<entry key="nodeIcon" value="department_1.jpg" />
+			</map>
+		</property>
+		<property name="treeNodesTemplet">
+			<map>
+				<entry key="com.yinhai.yhcip.app.organization.domain.Department">
+					<map>
+						<entry key="nodeIcon" value="department_1.jpg"/>
+						<entry key="allowSelect">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="false"/>
+							</bean>
+						</entry>
+					</map>
+				</entry>
+				<entry key="com.yinhai.yhcip.app.organization.domain.RoleScopeInfo">
+					<map>
+						<entry key="allowSelect">
+							<bean class="java.lang.Boolean">
+								<constructor-arg value="true"/>
+							</bean>
+						</entry>
+						<entry key="nodeIcon" value="roleScope.png"/>
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>	-->
+	<bean id="departBpo" parent="transactionProxy">
+		<property name="target">
+			<bean
+				class="com.yinhai.yhcip.app.organization.bpo.pojo.DepartBpoPojo" parent="abstractBaseService">
+				<property name="orgService">
+					<ref bean="entityService" />
+				</property>
+				<property name="departmentDao">
+					<ref bean="departmentDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="userBpo" parent="transactionProxy">
+		<property name="target">
+			<bean
+				class="com.yinhai.yhcip.app.organization.bpo.pojo.UserBpoPojo" parent="abstractBaseService">
+				<property name="entityService">
+					<ref bean="entityService" />
+				</property>
+				<property name="relationshipService">
+					<ref bean="relationshipService" />
+				</property>
+				<property name="userDao">
+					<ref bean="userDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<!-- 角色岗位管理BPO -->
+	<bean id="roleBpo" parent="transactionProxy">
+		<property name="target">
+			<bean
+				class="com.yinhai.yhcip.app.organization.bpo.pojo.RoleBpoPojo" parent="abstractBaseService">
+				<property name="entityService">
+					<ref bean="entityService" />
+				</property>
+				<property name="resourceService">
+					<ref bean="resourceService" />
+				</property>
+				<property name="operationSecurityService">
+					<ref bean="operationSecurityService" />
+				</property>
+				<property name="grantingSecurityService">
+					<ref bean="grantingSecurityService" />
+				</property>
+				<property name="relationshipService">
+					<ref bean="relationshipService" />
+				</property>
+				<property name="roleScopeUserRelationshipDao">
+					<ref bean="roleScopeUserRelationshipDao" />
+				</property>		
+				<property name="roleScopeOperationDao">
+					<ref bean="roleScopeOperationDao" />
+				</property>	
+				<property name="roleDao">
+					<ref bean="roleDao" />
+				</property>					
+			</bean>
+		</property>
+	</bean>	
+	<!-- 功能菜单Service，AD52表 -->
+	<bean id="functionMenuService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysapp.Bpo.impl.FunctionMenuServiceImpl"
+				parent="abstractBaseService">
+				<property name="resourceService" ref="resourceService"></property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 功能菜单Service，AD52表 -->
+	<!-- 用户在线情况Service -->
+	<bean id="userLoginInfoService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.webframework.security.service.pojo.UserLoginInfoServicePojo" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+	<!-- Oracle定时服务Service -->
+	<bean id="oracleJobService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.OracleJobServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+    <!-- quartz 定时服务 	
+ 	<bean id="schedule" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
+ 		<property name="dataSource" >
+ 			<ref bean="dataSource"/> 
+ 		</property>
+		<property name="waitForJobsToCompleteOnShutdown" value="true"/>	
+	</bean>  -->
+	<!-- 通用业务回退Service -->	
+ 	<bean id="rollbackToolService" parent="transactionProxy"> 
+ 		<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.RollbackToolServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>  
+		 <!-- 集群地址配置 -->	
+	<bean id="serverAddressService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.ServerAddressServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+		 <!-- 集群地址配置 -->	
+	<bean id="expLogService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.webframework.impexp.ExpLogServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+		<property name="transactionAttributes">
+		<props>
+		<prop key="logYhcip_log_error">PROPAGATION_REQUIRES_NEW</prop>
+		</props>
+		</property>		
+	</bean>	
+	<!-- 业务日志  -->
+	<bean id="logViewService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.LogViewServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+	<!-- 系统错误  -->
+	<bean id="systemErrorViewService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.SystemErrorViewServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+	<!-- 报表资源编辑  -->
+	<bean id="printResourceManagerService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.PrintResourceManagerServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+	<!-- 报表资源编辑  -->
+	<bean id="printTemplateManageService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.PrintTemplateManageServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+</beans>

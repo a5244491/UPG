@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/clz/**" security="none"/>
+	<http pattern="/services/**" security="none"/>
+	<http pattern="/mobile/**"   security="none"/>
+	<http pattern="/yhcrm/portalAction**" security="none"/>
+	
+ 	<http pattern="/style/js/ckplayer/**" security="none"/>
+ 	<http pattern="/**/*.js" security="none"/>
+ 	<http pattern="/**/*.jpg" security="none"/>
+ 	<http pattern="/**/*.jpeg" security="none"/>
+ 	<http pattern="/**/*.png" security="none"/>
+ 	<http pattern="/**/*.gif" security="none"/>
+ 	<http pattern="/**/*.css" security="none"/>
+ 	<http pattern="/**/*.raq" security="none"/>
+ 	<http pattern="/**/*.html" security="none"/>
+ 	<http pattern="/**/*.htm" security="none"/>
+ 	<http pattern="/**/*.swf" security="none"/>
+	<http pattern="/sessionResourceAction*" security="none"/>
+	<http pattern="/exception.jsp*" security="none"/>
+	<http pattern="/*CaptchaImg*" security="none"/>
+	<http pattern="/indexue/**" security="none"/>
+	<http pattern="/login.jsp*" security="none"/>
+	<http pattern="/accessdeniedAction*" security="none"/>
+	<http pattern="/ta/accessdenied.jsp" security="none"/>
+	<http pattern="/loginFailureAction*" security="none"/>
+	<http pattern="/ta/api/**" security="none"/>
+	<http pattern="/system/userPassAction*" security="none"/>
+	<http pattern="/system/appManagerMainAction*" security="none"/>
+	
+	<http pattern="/resetCurrentPage*" security="none"/>
+	
+	<http pattern="/welcome.jsp" security="none"/>
+	<http pattern="/system/roleScopeAction!query.do" security="none"/>
+	<http pattern="/homeAction**" security="none"/>
+    
+    <http pattern="/test/**" security="none"/>
+	
+    
+    <http auto-config="true" access-denied-page="/ta/accessdenied.jsp" 
+     	access-decision-manager-ref="accessDecisionManager" >
+		
+	<!-- 会话管理配置 -->
+	<!-- 一个帐号最多只能被一个用户登录，不能同时登录一个相同的帐号，第二个用户登录相同帐号登录不了。
+		 如果去掉 error-if-maximum-exceeded="true" 则第二次登录让第一次失效-->
+	<session-management invalid-session-url="/login.jsp" session-authentication-error-url="/login.jsp">
+		<concurrency-control session-registry-ref="sessionRegistry" max-sessions="20" error-if-maximum-exceeded="false" expired-url="/login.jsp"/>	
+	</session-management>
+	<!-- always-use-default-target为true时，表示登录后始终会跳转到default-target-url指向的路径，否则会跳转到登录前访问的路径，
+		由于登录后系统需要做一些处理工作，所以这里的值不可改变；
+		login-page:登陆页面；
+		aunthentication-failure-url：验证失败跳转的地址
+	 -->
+	<form-login default-target-url="/loginSuccessAction.do" 
+		always-use-default-target="true"
+		login-page="/login.jsp" authentication-failure-handler-ref="accessAuthenticationFailureHandler"
+		authentication-failure-url="/loginFailureAction.do"/>
+	 
+	<!-- logout-success-url:注销成功后跳转的地址；
+		invalidate-session:为true表示，springsecurity注销时会注销会话 -->
+	<logout logout-success-url="${tcas.server.logoutUrl}" invalidate-session="true"/>
+	<!-- pattern以采用ant路径写法，表示匹配的路径；filters="none"表示不需要对此路径进行权限控制 -->
+	
+	
+	<!--access列出访问属性，这里表示 只要登陆就可以访问所有资源，
+		框架真正对权限的控制是在自己定义的filter:securityInterceptorFilter中进行的,这里添加ROLE_ANONYMOUS是因为
+		在用flash做文件上传时，swf文件请求是以另一个会话的形式发起的，而这个会话中用户没有登录，所以这里加上角色ROLE_ANONYMOUS使得RoleVoter投票让
+		非登录用户也通过
+		 -->
+    <intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_FULLY"/>
+	<intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY,ROLE_ANONYMOUS"/>
+	
+	<!-- 添加自定义filter，after指定该filter处于springsecurity过滤链中的位置。after表示处于之后，相应的有before和position。
+		FILTER_SECURITY_INTERCEPTOR为SpringSecurity中权限验证过滤器的别名。TA框架中真正的权限控制就是在这个filter中进行的
+	 -->
+	<custom-filter after="FILTER_SECURITY_INTERCEPTOR" ref="securityInterceptorFilter"/>
+</http>
+ 
+<!-- accessDecisionManager里的配置不能修改，这里是SpringSecurity的投票机制配置，这里采用的是只要有一个通过即通过。
+	意思就是如果系统采用一个帐号登陆，而该帐号具有多个角色，
+	且可以都有效（框架采用的是只允许一个角色有效，即：只有一个登陆角色），
+	则只要有一个角色具有权限，该帐号就具有权限。 -->
+ <b:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+	 	<b:property name="allowIfAllAbstainDecisions" value="false"/>
+        <b:property name="decisionVoters">
+            <b:list>
+                <b:bean class="org.springframework.security.access.vote.RoleVoter">
+                    <b:property name="rolePrefix" value="" />
+                </b:bean>
+                <b:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+            </b:list>
+        </b:property>
+ </b:bean>
+
+<authentication-manager alias="authenticationManager">
+	<!-- 自定义的service，用于获取数据库用户信息，用于验证 -->
+	<authentication-provider user-service-ref="userDetailsService">
+		<!-- 密码加密 ，指定自定义的加密方法-->
+		<password-encoder ref="md5PasswordEncoder"/>
+	</authentication-provider>
+</authentication-manager>
+	
+	<!-- 自定义用户信息获取 -->
+	<b:bean id="userDetailsService" parent="transactionProxy">
+    	<b:property name="target">
+			<b:bean class="com.yinhai.webframework.security.service.pojo.UserInfoServicePojo"
+				parent="abstractBaseService">
+			</b:bean>
+		</b:property>
+	</b:bean>
+	
+	<!-- 自定义登录表单异常处理类 -->
+	<b:bean id="accessAuthenticationFailureHandler" class="com.yinhai.webframework.security.handler.AccessAuthenticationFailureHandler">
+		<b:property name="defaultFailureUrl" value="/loginFailureAction.do"></b:property>
+	</b:bean>
+	
+	<!-- 自定义过滤器，用于自定义对资源的讯问权限 -->
+    <b:bean id="securityInterceptorFilter" class="com.yinhai.webframework.security.filter.SecurityInterceptorFilter" >
+		<b:property name="securityDataSource" ref="securityDataSource"/>
+	</b:bean>
+	<!-- 自定义加密方式 -->
+	<b:bean id="md5PasswordEncoder" class="com.yinhai.webframework.security.util.Md5PasswordEncoder"></b:bean>
+	<b:bean id="sessionRegistry" class="com.yinhai.webframework.session.SessionManager"/>
+</b:beans>

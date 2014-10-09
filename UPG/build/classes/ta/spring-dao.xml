@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	
+	<!-- 设置sqlmap的配置 -->
+    <bean id="sqlExecutor" class="com.yinhai.sysframework.persistence.ibatis.LimitSqlExecutor">
+        <property name="dialect">
+<!--            <bean class="com.yinhai.sysframework.persistence.ibatis.OracleDialect" />-->
+            <bean class="com.yinhai.sysframework.persistence.ibatis.MySQLDialect" />
+        </property>
+    </bean>
+   	<bean id="absDao" abstract="true" class="com.yinhai.sysframework.persistence.ibatis.AbstractDaoSupport" init-method="initialize">
+   		<property name="sqlMapClient"><ref bean="sqlMapClient"/></property>
+   		<property name="sqlExecutor"><ref bean="sqlExecutor"/></property>
+   	</bean>
+   	<bean id="saveOldFieldData" parent="transactionProxy">
+		<property name="target">
+			<bean class="com.yinhai.sysapp.service.impl.SaveOldFieldServiceImpl" parent="baseService">
+			</bean>
+		</property>
+	</bean>
+   	<bean id="dao" class="com.yinhai.sysframework.persistence.ibatis.BaseDaoSupport" parent="absDao" >
+		<property name="saveOldFieldData" >
+		      <ref bean="saveOldFieldData" />
+		</property>
+	</bean>
+  
+    <bean id="baseService" class="com.yinhai.sysframework.service.BaseService">
+		<property name="dao">
+			<ref bean="dao"/>
+		</property>
+	</bean>   	
+	<bean id="abstractBaseService" abstract="true" class="com.yinhai.sysframework.service.AbstractService">
+		<property name="dao">
+			<ref bean="dao" />
+		</property>
+	</bean>
+	<!-- 
+	<bean id="appUtil" class="com.yinhai.sysframework.service.AppManager"/>
+	 -->
+	<bean id="appCodeDao" class="com.yinhai.sysframework.codetable.dao.AppCodeDaoSqlMap">
+		<property name="sqlMapClient"><ref bean="sqlMapClient"/></property>
+	</bean>
+	
+	<bean id="appCodeService" parent="transactionProxy">
+		<property name="target">
+			<bean
+				class="com.yinhai.sysframework.codetable.service.pojo.AppCodeServicePojo" parent="abstractBaseService">
+				<property name="appCodeDao">
+					<ref bean="appCodeDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="appCodeBpo" parent="transactionProxy">
+		<property name="target">
+			<bean
+				class="com.yinhai.sysframework.codetable.bpo.pojo.AppCodeBpoPojo">
+				<property name="appCodeService">
+					<ref bean="appCodeService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 系统与组织机构 -->
+	<bean id="sequenceDao" class="com.yinhai.sysframework.uidgen.dao.sqlmap.OracleSequenceUidDaoSqlMap">
+		<property name="sqlMapClient"><ref bean="sqlMapClient"/></property>
+	</bean>
+	<bean id="udefUidDao" class="com.yinhai.sysframework.uidgen.dao.sqlmap.UdefUidDaoSqlMap">
+		<property name="sqlMapClient"><ref bean="sqlMapClient"/></property>
+	</bean>
+	<bean id="levelRuleUidDao" class="com.yinhai.sysframework.uidgen.dao.sqlmap.LevelRuleUidDaoSqlMap">
+		<property name="sqlMapClient"><ref bean="sqlMapClient"/></property>
+	</bean>	
+	<!-- 打印报表资源 -->
+	<bean id="ae11Dao" class="com.yinhai.yhcip.print.dao.sqlmap.Ae11DaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<!-- 打印报表资源 -->
+	<bean id="ae12Dao" class="com.yinhai.yhcip.print.dao.sqlmap.Ae12DaoSqlMap">
+		<property name="sqlMapClient" >
+		      <ref bean="sqlMapClient" />
+		</property>
+	</bean>		
+</beans>

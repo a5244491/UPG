@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "/WEB-INF/dtd/sql-map-2.dtd">
+
+<!-- 表bcsupg_pay_interface的所有SQL语句映射配置表  -->
+<sqlMap namespace="bcsupgPayInterface">
+
+    <!-- **查询支付通道信息** -->
+	<select id="queryPayInterface" parameterClass="map" resultClass="java.util.HashMap">
+		SELECT
+			payway_id,			<!-- 支付通道 -->
+			payway_name,		<!-- 支付通道名称 -->
+			pay_interface_url,	<!-- 支付接口地址 -->
+			receive_account,	<!-- 收款账号 -->
+			partner_id,			<!-- 商户号 -->
+			key_type,			<!-- 私钥类型：1）证书，2）字符串 -->
+			cert_path1,			<!-- 第1证书路径 -->
+			cert_path2,			<!-- 第2证书路径 -->
+			user_key,			<!-- 私钥 -->
+			pay_process_class,	<!-- 支付处理类 -->
+			status,				<!-- 状态：1）有效，2）无效，99）注销 -->
+			return_url,			<!-- 返回URL -->
+			notify_url,			<!-- 通知URL -->
+			error_notify_url	<!-- 失败通知URL -->
+		FROM
+			bcsupg_pay_interface a
+		WHERE 1 = 1
+		<![CDATA[	AND payway_id = #payway_id#]]>
+	</select>
+	
+</sqlMap>

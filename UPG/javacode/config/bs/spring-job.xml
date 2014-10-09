@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- 支付异步通知 JOB S -->
+	<bean id="payResultNoticeOnceJob" class="com.yinhai.bcs.upg.netService.pay.job.PayResultNoticeOnceJob">
+		 <property name="payRecordsService" ref="payRecordsService"/>
+	</bean>
+	<bean id="payResultNoticeOnceJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 指定任务类 -->
+		<property name="targetObject" ref="payResultNoticeOnceJob" />
+		<!-- 指定任务执行的方法 -->
+		<property name="targetMethod" value="execute" />
+	</bean>
+	<bean id="payResultNoticeOnceJobTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="payResultNoticeOnceJobDetail" />
+		<!-- 每10秒运行一次 -->
+		<property name="cronExpression" value="0/10 * * * * ?" />
+	</bean>
+	<!-- 支付异步通知 JOB E -->
+	
+	
+	<!-- 交易流水号缓存 JOB S -->
+	<!-- <bean id="optsnVerifyCacheClearJob" class="com.yinhai.bcs.upg.netService.pay.job.OptsnVerifyCacheClearJob">
+		 <property name="cacheService" ref="cacheService"/>
+	</bean> -->
+	<!-- <bean id="optsnVerifyCacheClearJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+		<!-- 指定任务类 -->
+		<!-- <property name="targetObject" ref="optsnVerifyCacheClearJob" />-->
+		<!-- 指定任务执行的方法 -->
+		<!-- <property name="targetMethod" value="execute" />-->
+	<!-- </bean>-->
+	
+	
+	<!-- <bean id="optsnVerifyCacheClearJobTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="optsnVerifyCacheClearJobDetail" /> -->
+		<!-- 每天0点0时0分执行一次（凌晨） -->
+	<!--	<property name="cronExpression" value="0 0 0 * * ?" />-->
+	<!--</bean>-->
+	<!-- 交易流水号缓存 JOB E -->
+
+	<!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="payResultNoticeOnceJobTrigger" />
+				<ref bean="optsnVerifyCacheClearJobTrigger" />
+			</list>
+		</property> 
+	</bean>-->
+</beans>

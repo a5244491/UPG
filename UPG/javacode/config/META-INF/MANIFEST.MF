@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Yinhai
+Ant-Version: Apache Ant 1.6.2
+Implementation-Version: 3.2 2011-05-23 11:49:20
+Specification-Vendor: http://www.yinhai.com/
+Specification-Title: Ta3
+Created-By: 1.6.10_01-b01 (Sun Microsystems Inc.)
+Specification-Version: 3.2
+

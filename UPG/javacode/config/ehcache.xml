@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+ updateCheck="false">
+ <diskStore path="java.io.tmpdir" />
+
+<!--
+ <cacheManagerPeerProviderFactory
+  class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+  properties="peerDiscovery=automatic, multicastGroupAddress=230.0.0.1, multicastGroupPort=4446,timeToLive=32" />
+   <cacheManagerPeerListenerFactory
+  class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory" />
+  <cacheManagerPeerProviderFactory
+    class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+    properties="peerDiscovery=manual,
+    rmiUrls=//192.168.2.5:40001/userCache|//192.168.2.5:40001/resourceCache" /> 
+ <cacheManagerPeerListenerFactory
+    class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+    properties="hostName=192.168.2.154, port=40001,socketTimeoutMillis=2000" />
+  -->
+ 
+ <defaultCache eternal="false" 
+   maxElementsInMemory="1000"
+   overflowToDisk="false" 
+   diskPersistent="false" 
+   timeToIdleSeconds="0"
+   timeToLiveSeconds="6000" 
+   memoryStoreEvictionPolicy="LRU" />
+
+ <cache name="appCodeCache" 
+   eternal="true"
+   maxElementsInMemory="1000000"
+   overflowToDisk="false"
+   diskPersistent="false" 
+   memoryStoreEvictionPolicy="LRU">   
+    <cacheEventListenerFactory
+   class="com.yinhai.sysframework.cache.listener.TaCacheEventListenerFactory"/> 
+   </cache>
+ <cache name="codeListCache" 
+   eternal="true"
+   maxElementsInMemory="10000"
+   overflowToDisk="false"
+   diskPersistent="false" 
+   memoryStoreEvictionPolicy="LRU">   
+    <cacheEventListenerFactory
+   class="com.yinhai.sysframework.cache.listener.TaCacheEventListenerFactory"/> 
+   </cache>
+   
+ <cache name="appLevelCodeCache" 
+   eternal="true"
+   maxElementsInMemory="1000000"
+   overflowToDisk="false"
+   diskPersistent="false" 
+   memoryStoreEvictionPolicy="LRU">   
+    <cacheEventListenerFactory
+   class="com.yinhai.sysframework.cache.listener.TaCacheEventListenerFactory"/> 
+   </cache>
+ <cache name="codeLevelListCache" 
+   eternal="true"
+   maxElementsInMemory="10000"
+   overflowToDisk="false"
+   diskPersistent="false" 
+   memoryStoreEvictionPolicy="LRU">   
+    <cacheEventListenerFactory
+   class="com.yinhai.sysframework.cache.listener.TaCacheEventListenerFactory"/> 
+   </cache>
+   
+   <cache name="urlsCache" 
+   eternal="true"
+   maxElementsInMemory="1000"
+   overflowToDisk="false"
+   diskPersistent="false" 
+   memoryStoreEvictionPolicy="LRU"> 
+    <cacheEventListenerFactory
+   class="com.yinhai.sysframework.cache.listener.TaCacheEventListenerFactory"/>   
+   </cache>
+   
+ <cache name="serverAddressCache" 
+   eternal="true"
+   maxElementsInMemory="1000"
+   overflowToDisk="false"
+   diskPersistent="false" 
+   memoryStoreEvictionPolicy="LRU">   
+    <cacheEventListenerFactory
+   class="com.yinhai.sysframework.cache.listener.TaCacheEventListenerFactory"/> 
+   </cache>
+</ehcache>

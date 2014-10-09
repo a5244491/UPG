@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<!-- 以下所有bean的id请勿改动 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:tcas/tcas-client.properties</value>
+				<value>classpath:llpay.properties</value>
+				<!-- <value>classpath:redis_config.properties</value> -->
+			</list>
+		</property>
+	</bean>
+	<!--  add by CQ -->
+	<bean id="llpayConfig" class="com.yinhai.bcs.upg.pay3Interface.llpay.PartnerConfig">
+         <property name="YT_PUB_KEY" value="${llpay.YT_PUB_KEY}" />
+         <property name="SIGN_TYPE" value="${llpay.SIGN_TYPE}" />
+         <property name="MD5_KEY" value="${llpay.MD5_KEY}" />
+         <property name="OID_PARTNER" value="${llpay.OID_PARTNER}" />
+         <property name="VERSION" value="${llpay.VERSION}" />
+         <property name="BUSI_PARTNER" value="${llpay.BUSI_PARTNER}" />
+         <!-- <property name="productId">
+             <bean class="java.lang.Long">
+                 <constructor-arg index="0" value="${product.id}" />
+             </bean>
+         </property>
+          -->
+     </bean>
+     
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="maxActive" value="20"/>
+		<property name="maxWait" value="1000"/>
+		<property name="poolPreparedStatements" value="true"/>
+		<property name="defaultAutoCommit" value="true"/>
+	</bean>
+	
+	<!-- 针对单一数据源的事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	<!-- spring事务代理 -->
+	<bean id="transactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" lazy-init="true">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="save*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="modify*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="create*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="do*">PROPAGATION_REQUIRED,-AppException,-PrcException</prop>
+				<prop key="get*">PROPAGATION_REQUIRED</prop>
+				<prop key="list*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+   <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+	 <property name="configLocations">
+		<list>
+			<value>classpath:ta/SqlmapConfigForMySQL-framework.xml</value>
+			<value>classpath:sysapp/SqlmapConfigForMySQL-sysapp.xml</value>
+		</list>
+	 </property>
+	 <property name="dataSource"><ref bean="dataSource"/></property>
+	</bean>
+	<!-- 所有登陆用户都有权限访问的资源 -->
+	<bean id="securityDataSource" class="com.yinhai.webframework.security.SecurityDataSource">
+		<!-- 这里添加的用户，具有访问所有资源的权限 -->
+		<property name="developers">
+			<set>
+				<value>developer</value>
+			</set>
+		</property>
+		<!-- 这里添加的资源，表示所有登录的用户都具有访问权限(所有登录的用户都具有ROLE_ANONYMOUS_TA角色权限) -->
+		<property name="anonymousUrls">
+			<set>
+				<value>/</value>
+				<value>/indexAction*</value>
+				<value>/loginSuccessAction*</value>
+				<value>/loginAction*</value>
+				<value>/accessdenied.jsp</value>
+				<value>/accessdeniedForward.jsp</value>
+				<value>/HighChartsServlet*</value>
+				<value>/SimpleCaptcha*</value>
+				<value>/JasperPrintServlet*</value>	
+				<value>/workspace/**</value>
+				<value>/system/menuMainAction*</value>
+				<value>/system/comMenuAction*</value>
+				<value>/demo/demoAction*</value>
+				<value>/undefined</value>
+				<value>/exportGridDefaultExcel*</value>
+				<value>/exportGridDataAllExcel*</value>
+			</set>
+		</property>
+	</bean>
+	<!-- 从ta/spring-jms.xml移植过来，用于配置jms数据源地址 -->
+    <bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+        <property name="environment">
+            <props>
+                <prop key="java.naming.factory.initial">
+                    weblogic.jndi.WLInitialContextFactory
+                </prop>
+                <prop key="java.naming.provider.url">
+                    t3://localhost:7001
+                </prop>
+                <prop key="java.naming.factory.url.pkgs"> 
+                   weblogic.jndi.factories 
+                </prop>                 
+                <!--
+                    <prop key="java.naming.security.authentication"> weblogic </prop>
+                    <prop key="java.naming.security.credentials"> security </prop>
+                -->
+            </props>
+        </property>
+    </bean>		
+    <!-- quartz 定时服务 
+ 	<bean id="schedule" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
+ 		<property name="dataSource">
+ 			<ref local="dataSource"/> 
+ 		</property>
+		<property name="waitForJobsToCompleteOnShutdown" value="true"/>	
+	</bean>  
+	-->
+</beans>

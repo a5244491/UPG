@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"  
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="  
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd"> 
+    <import resource="classpath:META-INF/cxf/cxf.xml" />  
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+    <bean id="tcasClientInterceptor" class="com.yinhai.tcas.webservice.client.interceptor.TcasClientInterceptor"></bean> 
+	<jaxws:client id="tcasClientService"
+		address="${tcas.server.urlPrefix}/ws/tcasClientService"
+		serviceClass="com.yinhai.tcas.webservice.TcasClientWebService">
+		<jaxws:outInterceptors>
+			<ref bean="tcasClientInterceptor" />
+			<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+		</jaxws:outInterceptors>
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+		</jaxws:inInterceptors>
+	</jaxws:client> 
+	<bean id="tcasFilterService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.tcas.service.impl.Ta3TcasFilterECServiceImpl" parent="abstractBaseService">
+				<property name="userLoginInfoService">
+					<ref bean="userLoginInfoService"/>
+				</property>
+				<property name="organization4FrameworkService">
+					<ref bean="organization4FrameworkService"/>
+				</property>
+				<property name="security4FrameworkService">
+					<ref bean="security4FrameworkService"/>
+				</property>
+				<property name="sessionRegistry">
+					<ref bean="sessionRegistry"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+</beans>

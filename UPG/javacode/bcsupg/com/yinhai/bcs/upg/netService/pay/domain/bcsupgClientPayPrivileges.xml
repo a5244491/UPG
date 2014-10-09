@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "/WEB-INF/dtd/sql-map-2.dtd">
+
+<!-- 表bcsupg_client_pay_privilleges的所有SQL语句映射配置表  -->
+<sqlMap namespace="bcsupgClientPayPrivileges">
+
+    <!-- **查询客户访问服务权限** -->
+	<select id="queryClientPrivileges" parameterClass="map" resultClass="java.util.HashMap">
+		SELECT
+			id,					<!-- id-->
+			client_id,			<!-- 客户端id -->
+			service_id,			<!-- 服务标识 -->
+			public_key,			<!-- 公钥 -->
+			start_date,			<!-- 开始时间 -->
+			end_date			<!-- 结束时间：空表示永久 -->
+		FROM
+			bcsupg_client_pay_privileges a
+		WHERE 1 = 1
+		<![CDATA[	AND client_id = #client_id#]]>
+		<![CDATA[	AND service_id = #service_id#]]>
+		<![CDATA[	AND start_date <= now()]]>
+		<![CDATA[	AND (end_date > now() or end_date is null)]]>
+	</select>
+	
+</sqlMap>

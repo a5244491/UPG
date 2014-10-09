@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "/WEB-INF/dtd/sql-map-2.dtd">
+
+<!-- 表bcsupg_client_pay_privilleges的所有SQL语句映射配置表  -->
+<sqlMap namespace="bcsupgPayRecords">
+
+    <!-- 插入单条数据 -->
+	<insert id="insert" parameterClass="map">
+		INSERT INTO bcsupg_pay_records (
+		       records_id,			<!--              -->
+		       opt_sn,				<!--              -->
+		       service_id,			<!--              -->
+		       client_id,			<!--              -->
+		       sign_type,			<!--              -->
+		       sign_data,			<!--              -->
+		       biz_back_params,		<!--              -->
+		       return_url,			<!--              -->
+		       notify_url,			<!--              -->
+		       error_notify_url,	<!--              -->
+		       trade_sn,			<!--              -->
+		       trade_desc,			<!--              -->
+		       pay_account,			<!--              -->
+		       receive_account,		<!--              -->
+		       trade_balance,		<!--              -->
+		       payway_id,			<!--              -->
+		       biz_extends_params,	<!--              -->
+		       pay_deal_status,	    <!--              -->
+		       pay_result,			<!--              -->
+		       pay_notice_status,	<!--              -->
+		       pay_notice_count,    <!--              -->
+		       trade_time)	        <!--              -->
+		VALUES (
+		       #records_id:INTEGER#,			<!--              -->
+		       #opt_sn:VARCHAR#,				<!--              -->
+		       #service_id:INTEGER#,			<!--              -->
+		       #client_id:INTEGER#,				<!--              -->
+		       #sign_type:VARCHAR#,				<!--              -->
+		       #sign_data:VARCHAR#,				<!--              -->
+		       #biz_back_params:VARCHAR#,		<!--              -->
+		       #return_url:VARCHAR#,			<!--              -->
+		       #notify_url:VARCHAR#,			<!--              -->
+		       #error_notify_url:VARCHAR#,		<!--              -->
+		       #trade_sn:VARCHAR#,				<!--              -->
+		       #trade_desc:VARCHAR#,			<!--              -->
+		       #pay_account:VARCHAR#,			<!--              -->
+		       #receive_account:VARCHAR#,		<!--              -->
+		       #trade_balance:VARCHAR#,			<!--              -->
+		       #payway_id:INTEGER#,				<!--              -->
+		       #biz_extends_params:INTEGER#,	<!--              -->
+		       #pay_deal_status:INTEGER#,		<!--              -->
+		       #pay_result:INTEGER#,			<!--              -->
+		       #pay_notice_status:INTEGER#,		<!--              -->
+		       #pay_notice_count:INTEGER#,  	<!--              -->
+		       #trade_time:TIMESTAMP#)		    <!--              -->
+		<selectKey keyProperty="records_id" resultClass="java.lang.Integer">
+			<![CDATA[ SELECT LAST_INSERT_ID() AS value ]]> 
+		</selectKey>
+	</insert>
+	
+	<!-- **查询客户访问服务权限** -->
+	<select id="queryPayRecordByOptSN" parameterClass="map" resultClass="java.util.HashMap">
+		SELECT
+			records_id,
+			opt_sn,
+			service_id,
+			client_id,
+			sign_type,
+			sign_data,
+			biz_back_params,
+			return_url,
+			notify_url,
+			error_notify_url,
+			trade_sn,
+			trade_desc,
+			pay_account,
+			receive_account,
+			trade_balance,
+			payway_id,
+			biz_extends_params,
+			pay_deal_status,
+			pay_result,
+			pay_notice_status,
+			pay_notice_count,
+			trade_time
+		FROM
+			bcsupg_pay_records a
+		WHERE 1 = 1
+		<![CDATA[	AND opt_sn = #opt_sn#]]>
+	</select>
+	
+	<!-- 通过DTO更新单条数据,主键不能为空，只修改你设定值得字段，并且值不为null或"" -->
+	<update id="updateNotEmpty" parameterClass="map">
+		UPDATE bcsupg_pay_records
+		 <dynamic prepend="SET"> 
+			<isNotEmpty prepend="," property="opt_sn">   <!--              -->
+		       opt_sn = #opt_sn:VARCHAR#              
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="service_id">   <!--              -->
+		       service_id = #service_id:INTEGER#          
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="client_id">   <!--              -->
+		       client_id = #client_id:INTEGER#           
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="sign_data">   <!--              -->
+		       sign_data = #sign_data:VARCHAR#           
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="msg_notice_url">   <!--              -->
+		       msg_notice_url = #msg_notice_url:VARCHAR#      
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="return_success_url">   <!--              -->
+		       return_success_url = #return_success_url:VARCHAR#  
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="return_error_url">   <!--              -->
+		       return_error_url = #return_error_url:VARCHAR#    
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="trade_sn">   <!--              -->
+		       trade_sn = #trade_sn:VARCHAR#            
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="biz_back_params">   <!--              -->
+		       biz_back_params = #biz_back_params:VARCHAR#     
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="trade_desc">   <!--              -->
+		       trade_desc = #trade_desc:VARCHAR#          
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="pay_account">   <!--              -->
+		       pay_account = #pay_account:VARCHAR#         
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="receive_account">   <!--              -->
+		       receive_account = #receive_account:VARCHAR#     
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="trade_balance">   <!--              -->
+		       trade_balance = #trade_balance:VARCHAR#       
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="pay_ways">   <!--              -->
+		       pay_ways = #pay_ways:INTEGER#            
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="biz_extends_params">   <!--              -->
+		       biz_extends_params = #biz_extends_params:INTEGER#  
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="pay_deal_status">   <!--              -->
+		       pay_deal_status = #pay_deal_status:INTEGER#          
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="pay_result">   <!--              -->
+		       pay_result = #pay_result:INTEGER#          
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="pay_notice_status">   <!-- 1-未通知
+             2-通知成功
+             3-通知未送达 -->
+		       pay_notice_status = #pay_notice_status:INTEGER#   
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="pay_notice_count">   <!--              -->
+		       pay_notice_count = #pay_notice_count:INTEGER#    
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="trade_time">   <!-- 交易时间     -->
+		       trade_time = #trade_time:TIMESTAMP#        
+			</isNotEmpty>
+		 </dynamic> 
+		 WHERE 1 = 1 
+<![CDATA[	   AND records_id = #records_id#    ]]>    <!--  -->
+	</update>
+	
+	<!-- 更新异步通知次数 -->
+	<update id="updatePayNoticeCount" parameterClass="map">
+		UPDATE bcsupg_pay_records
+		 <dynamic prepend="SET"> 
+			<isNotEmpty prepend="," property="pay_notice_count">
+<![CDATA[	   pay_notice_count = pay_notice_count + #pay_notice_count:INTEGER#   ]]>
+			</isNotEmpty>
+		 </dynamic> 
+		 WHERE 1 = 1 
+<![CDATA[	   AND records_id = #records_id#    ]]>
+	</update>
+	
+</sqlMap>

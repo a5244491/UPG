@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "/WEB-INF/dtd/sql-map-2.dtd">
+
+<!-- 表bcsupg_serve_interface的所有SQL语句映射配置表  -->
+<sqlMap namespace="bcsupgServiceInterface">
+
+    <!-- **查询客户访问服务权限** -->
+	<select id="queryServiceInterface" parameterClass="map" resultClass="java.util.HashMap">
+		SELECT
+			service_id,					<!-- 服务标识 -->
+			service_name,				<!-- 服务名称 -->
+			payway_id,					<!-- 支付通道 -->
+			interface_model,			<!-- 接口模式：1）后台模式，2）前台模式 -->
+			pay_result_process_class,	<!-- 交易结果处理类 -->
+			status						<!-- 接口状态：1）有效，2）无效，99）注销 -->
+		FROM
+			bcsupg_service_interface a
+		WHERE 1 = 1
+		<![CDATA[	AND service_id = #service_id#]]>
+	</select>
+	
+</sqlMap>

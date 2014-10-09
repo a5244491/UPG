@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>yhec</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:app-context.xml</param-value>
+	</context-param>
+	<!-- tcas -->
+	<filter>
+		<filter-name>TcasFilter</filter-name>
+		<filter-class>
+			com.yinhai.tcas.client.authentication.TcasFilter
+		</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>initFilter</filter-name>
+		<filter-class>
+			com.yinhai.bcs.upg.common.core.InitFilter
+		</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>TcasFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>
+			org.jasig.cas.client.session.SingleSignOutHttpSessionListener
+		</listener-class>
+	</listener>
+	<!-- tcas -->
+	<filter>
+		<filter-name>GzipJsFilter</filter-name>
+		<filter-class>
+			com.yinhai.webframework.filter.GzipJsFilter
+		</filter-class>
+		<init-param>
+			<param-name>headers</param-name>
+			<param-value>Content-Encoding=gzip</param-value>
+		</init-param>
+	</filter>
+	<!-- -->
+	<filter>
+		<filter-name>checkCodeFilter</filter-name>
+		<filter-class>
+			com.yinhai.webframework.security.filter.CheckCodeFilter
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>
+			org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>GzipJsFilter</filter-name>
+		<url-pattern>*.gzjs</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>checkCodeFilter</filter-name>
+		<url-pattern>/j_spring_security_check</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>
+			com.yinhai.webframework.StartupListener
+		</listener-class>
+	</listener>
+	<!-- Spring 刷新Introspector防止内存泄露 -->
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
+	</listener>
+	<listener>
+   		 <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+	<listener>
+        <listener-class>org.apache.struts2.dispatcher.ng.listener.StrutsListener</listener-class>
+    </listener>
+	<!-- 验证码 -->
+	<servlet>
+		<servlet-name>SimpleCaptcha</servlet-name>
+		<servlet-class>
+			com.yinhai.webframework.filter.SimpleCaptchaServlet
+		</servlet-class>
+	</servlet>
+	<!-- webservice -->
+	<servlet> 
+        <servlet-name>CXFServlet</servlet-name> 
+        <servlet-class> 
+            org.apache.cxf.transport.servlet.CXFServlet  
+        </servlet-class> 
+        <load-on-startup>1</load-on-startup> 
+    </servlet>
+	 <servlet-mapping> 
+        <servlet-name>CXFServlet</servlet-name> 
+        <url-pattern>/services/*</url-pattern> 
+ 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SimpleCaptcha</servlet-name>
+		<url-pattern>/CaptchaImg</url-pattern>
+	</servlet-mapping>
+	<mime-mapping>
+		<extension>pdf</extension>
+		<mime-type>application/pdf</mime-type>
+	</mime-mapping>
+ 
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+ <session-config>
+  <session-timeout>30</session-timeout>
+ </session-config>
+   
+   
+   <welcome-file-list>
+   	<welcome-file>login.jsp</welcome-file>
+   </welcome-file-list>
+</web-app>

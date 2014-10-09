@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+ 	<bean id="commonUidService" parent="transactionProxy" >
+		<property name="target">
+			<bean
+				class="com.yinhai.sysframework.uidgen.service.impl.SimpleTypeUidServiceImpl" parent="abstractBaseService">
+			</bean>
+		</property>
+	</bean>
+	<bean id="frameworkUidService" parent="transactionProxy">
+		<property name="target">
+			<bean
+				class="com.yinhai.sysframework.uidgen.service.impl.UdefUidServiceImpl" parent="abstractBaseService">
+				<property name="uidName">
+					<value>frameworkUid</value>
+				</property>
+				<property name="cacheSize">
+					<value>20</value>
+				</property>
+				<property name="minUid">
+					<value>1000000001</value>
+				</property>
+				<property name="udefUidDao">
+					<ref bean="udefUidDao" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="defaultUidService"
+		class="com.yinhai.sysframework.uidgen.service.impl.OracleSequenceUidServiceImpl" parent="abstractBaseService">
+		<property name="sequenceName">
+			<value>SEQ_DEFAULT</value>
+		</property>
+		<property name="sequenceDao">
+			<ref bean="sequenceDao" />
+		</property>
+	</bean>
+	<bean id="resourceUidService"
+		class="com.yinhai.sysframework.uidgen.service.impl.LevelRuleUidFromUserTableServiceImpl" parent="abstractBaseService">
+		<property name="tableName">
+			<value>v_resource</value>
+		</property>
+		<property name="columnName">
+			<value>resourceId</value>
+		</property>
+		<property name="levelLengths">
+			<list>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+			</list>
+		</property>
+		<property name="mode">
+			<value>1</value>
+		</property>
+		<property name="levelRuleUidDao">
+			<ref bean="levelRuleUidDao" />
+		</property>
+	</bean>
+	<bean id="departUidService"
+		class="com.yinhai.sysframework.uidgen.service.impl.LevelRuleUidFromUserTableServiceImpl" parent="abstractBaseService">
+		<property name="tableName">
+			<value>ad53a1</value>
+		</property>
+		<property name="columnName">
+			<value>yab109</value>
+		</property>
+		<property name="levelLengths">
+			<list>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+				<value>2</value>
+			</list>
+		</property>
+		<property name="mode">
+			<value>1</value>
+		</property>
+		<property name="levelRuleUidDao">
+			<ref bean="levelRuleUidDao" />
+		</property>
+	</bean>
+	<!-- 缓存的代码表 -->
+	<bean id="codeCacheService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysframework.codetable.service.pojo.CodeCacheServiceImpl" parent="abstractBaseService">
+				<property name="codeTableViewName">
+					<value>aa10a1</value>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="codelevelCacheService" parent="transactionProxy">
+    	<property name="target">
+			<bean class="com.yinhai.sysframework.codetable.service.pojo.CodeLevelCacheServiceImpl" parent="abstractBaseService">
+				<property name="codeTableViewName">
+					<value>aa10tree1</value>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	
+	<bean id="handleOldDataManagerService" parent="transactionProxy">
+		<property name="target">
+	 		<bean
+	 			class="com.yinhai.sysapp.service.impl.HandleOldDataManagerServiceImpl" parent="abstractBaseService">
+	 		</bean> 
+	 	</property> 
+	</bean>
+	
+	<bean id="loadAllUrlsService" class="com.yinhai.webframework.security.service.pojo.LoadAllUrlsServiceImpl" parent="abstractBaseService">
+	</bean>
+
+</beans>

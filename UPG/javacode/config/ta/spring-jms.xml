@@ -1,0 +1,58 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	 http://activemq.apache.org/schema/core/activemq-core-5.0.0.xsd">
+    
+     <bean id="connectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>TopicConnectionFactory</value>
+        </property>
+        <property name="jndiTemplate">
+            <ref local="jndiTemplate"></ref>
+        </property>
+    </bean>
+    
+    <bean id="destination" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>logTopic</value>
+        </property>
+        <property name="jndiTemplate">
+            <ref local="jndiTemplate"></ref>
+        </property>
+    </bean>
+	
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory">
+            <ref local="connectionFactory" />
+        </property>
+        <property name="defaultDestination">
+            <ref local="destination" />
+        </property>        
+        <!-- 
+        <property name="messageConverter" ref="defaultMessageConverter" />
+         -->
+    </bean>
+    <!-- 原来的jndiTemplate移植到spring-datasource.xml了-->
+	<bean id="defaultMessageConverter" class="com.yinhai.sysapp.jms.DefaultMessageConverter" />
+    
+	<bean id="messageConsumerLog" class="com.yinhai.sysapp.jms.TopicLog" />
+
+	<!-- Message Listener -->
+	<bean id="messageListenerLog" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg ref="messageConsumerLog" />
+		<property name="defaultListenerMethod" value="receive" />
+		<!-- custom MessageConverter define -->
+		<property name="messageConverter" ref="defaultMessageConverter" />
+	</bean>
+
+	<!--  listener container -->
+	<bean id="listenerContainerA" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination" />
+		<property name="messageListener" ref="messageListenerLog" />
+		<!-- 
+		<property name="sessionTransacted" value="true"/>
+		 -->
+	</bean>
+
+</beans>

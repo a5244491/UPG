@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+           
+   <!-- 引入bcsupg数据源 -->
+   <import resource="spring-datasource-bcsupg.xml"/>
+   <import resource="spring-datasource-bcs.xml"/>
+   <import resource="spring-datasource.xml"/>
+   <import resource="spring-security.xml"/>
+   <import resource="sysapp/spring-dao.xml"/>
+   <import resource="sysapp/spring-service.xml"/>
+   <import resource="ta/spring-cfg-include.xml"/>
+   <import resource="bs/spring-cfg-include.xml"/>
+   <import resource="bs/spring-job.xml"/>
+  <!-- <import resource="spring-redis.xml"/> --> 
+   
+  
+   <!-- cas -->
+   <import resource="tcas/tcas-client.xml"/>
+   <bean id="springContextUtil" class="com.yinhai.bcs.upg.common.util.SpringContextUtil" lazy-init="false"></bean>
+</beans>

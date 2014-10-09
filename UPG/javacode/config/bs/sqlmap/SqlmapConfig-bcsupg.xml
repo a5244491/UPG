@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+	<!-- 市场 -->
+	<!-- <sqlMap resource="com/yinhai/bcs/upg/domain/Crm_portal_mysql.xml"/> -->
+	<!-- <sqlMap resource="com/yinhai/bcs/entity/domain/Bcsupg_pay_records.xml"/> -->
+	
+	<sqlMap resource="com/yinhai/bcs/upg/netService/pay/domain/bcsupgClientPayPrivileges.xml"/>
+	<sqlMap resource="com/yinhai/bcs/upg/netService/pay/domain/bcsupgPayInterface.xml"/>
+	<sqlMap resource="com/yinhai/bcs/upg/netService/pay/domain/bcsupgPayRecords.xml"/>
+	<sqlMap resource="com/yinhai/bcs/upg/netService/pay/domain/bcsupgServiceInterface.xml"/>
+	<sqlMap resource="com/yinhai/bcs/entity/domain/Bcsupg_pay_records.xml"/>
+	<sqlMap resource="com/yinhai/bcs/entity/domain/Bcs_client_infos.xml"/>
+</sqlMapConfig>

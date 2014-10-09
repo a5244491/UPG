@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+<!--cacheModelsEnabled 是否启用SqlMapClient上的缓存机制。建议设为"true" -->
+<!--enhancementEnabled 是否针对POJO启用字节码增强机制以提升getter/setter的调用效能，避免使用JavaReflect所带来的性能开销。同时，这也为Lazy Loading带来了极大的性能提升。建议设为"true" -->
+<!--errorTracingEnabled 是否启用错误日志，在开发期间建议设为"true"以方便调试 -->
+  <settings 
+  	useStatementNamespaces="true"
+  	cacheModelsEnabled="true" 
+  	enhancementEnabled="true" 
+  	errorTracingEnabled="true" 
+  />
+  
+  <sqlMap resource="com/yinhai/sysapp/sqlmap/AD52MySQL.xml"/>
+  <sqlMap resource="com/yinhai/sysapp/sqlmap/comMenuMySQL.xml"/>
+  
+  <!--系统管理和组织机构-->
+	<!-- 操作人员信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/UserMySQL.xml"/>
+	<!-- 部门信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/DepartmentMySQL.xml"/>
+	<!-- 角色信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/RoleMySQL.xml"/>
+	<!-- 角色作用域信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/RoleScopeMySQL.xml"/>
+	<!-- 人员角色作用域关联信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/RoleScopeUserRelationshipMySQL.xml"/>
+	<!-- 角色作用域委派信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/organization/dao/sqlmap/ConsignationRoleMySQL.xml"/>
+	<!-- 应用菜单结构 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/MenuMySQL.xml"/>
+	<!-- 页面信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/PageMySQL.xml"/>
+	<!-- 页面控件信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/PageItemMySQL.xml"/>
+	<!-- 权限信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/PermissionMySQL.xml"/>
+	<!-- 角色操作权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleOperationMySQL.xml"/>
+	<!-- 角色作用域操作权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleScopeOperationMySQL.xml"/>
+	<!-- 角色授权权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleGrantingMySQL.xml"/>
+	<!-- 角色作用域授权权限授权信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/RoleScopeGrantingMySQL.xml"/>
+	<!-- 操作权限委派信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/ConsignedOperationMySQL.xml"/>
+	<!-- 授权权限委派信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/ConsignedGrantingMySQL.xml"/>
+	<!-- 功能互斥信息 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/FunctionMutexMySQL.xml"/>
+	<!-- 功能互斥定义 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/FunctionMutexItemMySQL.xml"/>
+	<!-- 用户定义快捷菜单 -->
+	<sqlMap resource="com/yinhai/yhcip/app/security/dao/sqlmap/QmenuMySQL.xml"/>
+	
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Ae08MySQL.xml"/>
+	<!-- 系统监控  
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/MonitorMySQL.xml"/>
+	-->
+	<!-- 当前登陆用户信息 -->
+	<sqlMap resource="com/yinhai/sysapp/sqlmap/Ad60MySQL.xml"/>
+    <!-- 系统日志  -->
+	<sqlMap resource="com/yinhai/sysapp/log4j/domain/Yhcip_log_systemMySQL.xml"/>
+	<!--服务器管理-->
+	<sqlMap resource="com/yinhai/sysapp/log4j/domain/Yhcip_log_serverMySQL.xml"/>
+	<!--类管理-->
+	<sqlMap resource="com/yinhai/sysapp/log4j/domain/Yhcip_log_classMySQL.xml"/>
+	<sqlMap resource="com/yinhai/webframework/impexp/Yhcip_log_error.xml"/> 
+</sqlMapConfig>
