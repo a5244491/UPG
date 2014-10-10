@@ -35,9 +35,9 @@
 				<input size="30" name="sign_data" value="1234qwerasdfzxcv" />*(使用客户端私钥签名)
 			<br>
 			<dt>同步返回地址：</dt>
-				<input size="30" name="return_url" value="/test/busi_return_result.jsp" />*
+				<input size="30" name="return_url" value="/UPG/test/busi_return_result.jsp" />*
 			<dt>异步通知地址：</dt>
-				<input size="30" name="notify_url" value="/test/busi_notify_result.jsp" />*
+				<input size="30" name="notify_url" value="/UPG/test/busi_notify_result.jsp" />*
 			<br>
 			<button type="submit">确 认</button>
 		</form>

@@ -9,7 +9,7 @@
 		<title></title>
 	</head>
 	<script>
-		alert(0);
+		//alert(0);
 	</script>
 	<body>
 		正常在为您跳转到支付页面，请稍后...<br>

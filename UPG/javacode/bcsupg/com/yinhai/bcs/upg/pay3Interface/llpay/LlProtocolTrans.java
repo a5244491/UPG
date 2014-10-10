@@ -99,11 +99,11 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 	public boolean checkSign(HttpServletRequest request,
 			Map<String, String> paramMap) {
 		try {
-			String reqStr = LLPayUtil.readReqStr(request);
+//			String reqStr = LLPayUtil.readReqStr(request);
 //			Map<String, String> temp = new HashMap<String, String>();
 //			temp.putAll(paramMap);
 //			changeMap(temp);
-			if (!LLPayUtil.checkSign(reqStr, paramMap, pConfig.getYT_PUB_KEY(),
+			if (!LLPayUtil.checkSign(paramMap, pConfig.getYT_PUB_KEY(),
 					pConfig.getMD5_KEY())) {
 				System.out.println("连连支付异步通知验签失败");
 				return false;
