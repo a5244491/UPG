@@ -55,10 +55,11 @@ public class PayResultNoticeListenerAction extends BaseAction {
 			// 取出整个协议包
 			Map<String, String> paramMap = ParamUtil.coverRequestMapToMap(request);
 			System.out.println("[" + DateUtil.getCurrentTime() + "]第三方支付异步请求信息" + paramMap);
-			log.debug("得到的异步轻巧消息是" + paramMap);
+			log.debug("异步处理__得到的异步请求消息是"+ paramMap);
 			// 取出支付通道
 			String opt_sn = MessageUtil.findSN(paramMap);
 			if (opt_sn == null || opt_sn.length() != IConstants.PAY_OPT_SN_LENGTH) {
+				log.debug("异步处理__没有取得交易流水号或者操作流水号的格式错误");
 				request.setAttribute(IConstants.FPAY_NOTICE_MSG, "没有取得交易流水号或者操作流水号的格式错误.");
 				return "notice";
 			}
@@ -67,6 +68,7 @@ public class PayResultNoticeListenerAction extends BaseAction {
 			params.put("opt_sn", opt_sn);
 			Map<String, Object> payRecord = payRecordsService.getPayRecordByOptSN(params);
 			if (payRecord == null) {
+				log.debug("异步处理__没有取得支付记录");
 				request.setAttribute(IConstants.FPAY_NOTICE_MSG, "没有取得支付记录.");
 				return "notice";
 			}
@@ -76,6 +78,7 @@ public class PayResultNoticeListenerAction extends BaseAction {
 			// 根据支付通道payway_id，获取支付通道信息payInterface
 			BcsupgServiceInterfaceDomain siDomain = serviceService.getServiceInterfaceDomain(serviceId);
 			if (siDomain == null) {
+				log.debug("异步处理__没有取得服务接口");
 				request.setAttribute(IConstants.FPAY_NOTICE_MSG, "没有取得服务接口.");
 				return "notice";
 			}
@@ -83,6 +86,7 @@ public class PayResultNoticeListenerAction extends BaseAction {
 			params2.put("payway_id", payway_id);
 			Map<String, Object> payInterface = pay3Service.getPay3Interface(params2);
 			if (payInterface == null) {
+				log.debug("异步处理__没有取得支付接口");
 				request.setAttribute(IConstants.FPAY_NOTICE_MSG, "没有取得支付接口.");
 				return "notice";
 			}
@@ -91,7 +95,8 @@ public class PayResultNoticeListenerAction extends BaseAction {
 
 			// add by CQ 应该在这里进行验证
 			Pay3ProtocolTrans ppt = pay3Interface.getProtocolTrans();
-			if (!ppt.checkSign(request, paramMap)) {
+			if (!ppt.checkSign(request, paramMap, response)) {
+				log.debug("异步处理__支付异步通知验签失败");
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, "支付异步通知验签失败");
 				return "failure";
 			}
@@ -107,6 +112,7 @@ public class PayResultNoticeListenerAction extends BaseAction {
 				// 获取支付通道对应的接口类、通知地址、收款账号等信息
 				BcsupgServiceInterfaceDomain serviceDomain = serviceService.getServiceInterfaceDomain(serviceId);
 				if (serviceDomain == null) {
+					log.debug("异步处理__");
 					request.setAttribute(IConstants.FPAY_EEROR_MSG, "没有对应的结果处理信息");
 					return "failure";
 				}

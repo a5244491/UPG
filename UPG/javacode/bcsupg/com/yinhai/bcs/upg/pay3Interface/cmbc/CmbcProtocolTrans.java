@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.yinhai.bcs.upg.common.util.IConstants;
 import com.yinhai.bcs.upg.message.pay.PayUPGReqMsg;
@@ -142,7 +143,7 @@ public class CmbcProtocolTrans implements Pay3ProtocolTrans{
 
 	@Override
 	public boolean checkSign(HttpServletRequest request,
-			Map<String, String> paramMap) {
+			Map<String, String> paramMap, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		return true;
 	}

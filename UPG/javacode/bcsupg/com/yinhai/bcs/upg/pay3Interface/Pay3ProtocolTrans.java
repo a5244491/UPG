@@ -3,6 +3,7 @@ package com.yinhai.bcs.upg.pay3Interface;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.yinhai.bcs.upg.message.pay.PayUPGReqMsg;
 import com.yinhai.bcs.upg.pay3Interface.common.msg.OutFPayResultMsg;
@@ -26,5 +27,5 @@ public interface Pay3ProtocolTrans {
 	
 	public String createFPayNoticeReturnStr (OutFPayResultMsg rspMsg);
 	public boolean checkSign(HttpServletRequest request,
-			Map<String, String> paramMap);
+			Map<String, String> paramMap, HttpServletResponse response);
 }

@@ -12,7 +12,7 @@ public class LlPaySettleTradeProcess implements PayDealProcess {
 		// 支付成功后的处理动作
 		// 调用核心系统AB交易处理操作
 		if (outPayResultMsg != null && payRecord != null) {
-			System.out.println("支付异步通知数据接收处理成功");
+			//System.out.println("支付异步通知数据接收处理成功");
 			return IConstants.PAY_DEAL_STATUS_SUCCESS;
 		} else {
 			return IConstants.DEAL_STATUS_0;

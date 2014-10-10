@@ -130,6 +130,6 @@ public interface IConstants {
 	
 	public static final int    UPG_NOTICE_COUNT_PARAM = 1;
 	
-	public static final int    UPG_NOTICE_COUNT_MAXLI = 8;
+	public static final int    UPG_NOTICE_COUNT_MAXLI = 20;
 	
 }

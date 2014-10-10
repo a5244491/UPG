@@ -1,9 +1,15 @@
 package com.yinhai.bcs.upg.pay3Interface.llpay;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.yinhai.bcs.upg.common.util.IConstants;
@@ -13,7 +19,9 @@ import com.yinhai.bcs.upg.pay3Interface.Pay3ProtocolTrans;
 import com.yinhai.bcs.upg.pay3Interface.common.msg.OutFPayResultMsg;
 
 public class LlProtocolTrans implements Pay3ProtocolTrans {
+	protected final Log log = LogFactory.getLog(getClass());
 	PartnerConfig pConfig = (PartnerConfig) SpringContextUtil.getBean("llpayConfig");
+
 	@Override
 	public Map<?, ?> reqBPayTrans(PayUPGReqMsg payReqMsgBody) {
 		// TODO Auto-generated method stub
@@ -21,10 +29,9 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 	}
 
 	@Override
-	public Map<String, Object> reqFPayTrans(PayUPGReqMsg payReqMsgBody,
-			Map<String, Object> payInterfaceMap) {
+	public Map<String, Object> reqFPayTrans(PayUPGReqMsg payReqMsgBody, Map<String, Object> payInterfaceMap) {
 		PaymentInfo paymentInfo = new PaymentInfo();
-		
+
 		paymentInfo.setVersion(pConfig.getVERSION());
 		paymentInfo.setOid_partner(pConfig.getOID_PARTNER()); // 支付交易商户编号 必录*
 		paymentInfo.setUser_id(pConfig.getOID_PARTNER()); // 商户用户唯一编号 必录*
@@ -50,11 +57,10 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 		paymentInfo.setTimestamp(LLPayUtil.getCurrentDateTimeStr()); // 时间戳
 		// paymentInfo.setRisk_item(createRiskItem()); // 风险控制参数 非必录
 		paymentInfo.setSign_type(pConfig.getSIGN_TYPE()); // 签名方式 RSA 或者
-																// MD5 必录*
+															// MD5 必录*
 		// 加签名
-		String sign = LLPayUtil.addSign(
-				JSON.parseObject(JSON.toJSONString(paymentInfo)),
-				pConfig.getTRADER_PRI_KEY(), pConfig.getMD5_KEY());
+		String sign = LLPayUtil.addSign(JSON.parseObject(JSON.toJSONString(paymentInfo)), pConfig.getTRADER_PRI_KEY(),
+				pConfig.getMD5_KEY());
 		paymentInfo.setSign(sign); // 签名
 		// String sign = LLPayUtil.addSignRSA(JSON.parseObject(JSON
 		// .toJSONString(paymentInfo)), PartnerConfig.TRADER_PRI_KEY,
@@ -70,13 +76,16 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 
 	@Override
 	public String createFPayNoticeReturnStr(OutFPayResultMsg rspMsg) {
-		return "success";
+		RetBean retBean = new RetBean();
+		retBean.setRet_code("0000");
+		retBean.setRet_msg("交易成功");
+		return JSON.toJSONString(retBean);
 	}
 
 	@Override
 	public OutFPayResultMsg createPayResult(Map<String, String> reqParamMap) {
 		OutFPayResultMsg resultMsg = new OutFPayResultMsg();
-		String  result_pay= reqParamMap.get("result_pay");
+		String result_pay = reqParamMap.get("result_pay");
 		int payResult = 2;
 		try {
 			if ("SUCCESS".equals(result_pay)) {
@@ -96,35 +105,38 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 	}
 
 	@Override
-	public boolean checkSign(HttpServletRequest request,
-			Map<String, String> paramMap) {
+	public boolean checkSign(HttpServletRequest request, Map<String, String> paramMap, HttpServletResponse response) {
+		
 		try {
-//			String reqStr = LLPayUtil.readReqStr(request);
-//			Map<String, String> temp = new HashMap<String, String>();
-//			temp.putAll(paramMap);
-//			changeMap(temp);
-			if (!LLPayUtil.checkSign(paramMap, pConfig.getYT_PUB_KEY(),
-					pConfig.getMD5_KEY())) {
+			// String reqStr = LLPayUtil.readReqStr(request);
+			// Map<String, String> temp = new HashMap<String, String>();
+			// temp.putAll(paramMap);
+			// changeMap(temp);
+
+			if (!LLPayUtil.checkSign(paramMap, pConfig.getYT_PUB_KEY(), pConfig.getMD5_KEY())) {
+				log.debug("连连支付异步通知验签失败");
 				System.out.println("连连支付异步通知验签失败");
 				return false;
 			}
 		} catch (Exception e) {
+			log.debug("连连支付异步通知报文解析异常："+ e);
 			System.out.println("连连支付异步通知报文解析异常：" + e);
 			return false;
 		}
+		log.debug("连连支付异步通知数据接收验签成功");
 		System.out.println("连连支付异步通知数据接收验签成功");
 		return true;
 	}
 
 	private void changeMap(Map<String, String> paramMap) {
 		// 商户编号 oid_partner
-		// 签名方式 sign_type 
+		// 签名方式 sign_type
 		// 签名 sign
 		// 商户订单时间 dt_order
 		// 商户唯一订单号 no_order
 		// 连连支付支付单号 oid_paybill
 		// 交易金额 money_order
-		// 支付结果  result_pay
+		// 支付结果 result_pay
 		// 清算日期 settle_date
 		// 订单描述 info_order
 		// 支付方式 pay_type

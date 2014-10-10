@@ -64,8 +64,8 @@ public class PayResultReturnListenerAction extends BaseAction {
 		try {
 			// 取出整个协议包
 			Map<String,String> paramMap = ParamUtil.coverRequestMapToMap(request);
-			log.debug("得到的同步消息是" + paramMap);
-			System.out.println("第三方支付同步返回信息" + paramMap);
+			log.debug("同步消息__得到的同步消息是" + paramMap);
+			System.out.println("同步消息__第三方支付同步返回信息" + paramMap);
 			if(paramMap == null || paramMap.size() == 0){
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, "获取到的请求信息为空值，检查你的浏览器设置或查看是否正确发送了支付请求信息.");
 				return "failure";
@@ -73,43 +73,47 @@ public class PayResultReturnListenerAction extends BaseAction {
 			// 取该笔交易操作流水号
 			String opt_sn = MessageUtil.findSN(paramMap);
 			if(opt_sn == null || opt_sn.length() != IConstants.PAY_OPT_SN_LENGTH ){
+				log.debug("同步消息__没有取得交易操作流水号或者是错误的操作流水号.");
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, "没有取得交易操作流水号或者是错误的操作流水号.");
 				return "failure";
 			}
-			log.debug("同步处理1");
+			
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("opt_sn", opt_sn);
 			Map<String, Object> payRecord = tradeService.getPayRecordByOptSN(params);
 			if(payRecord == null){
+				log.debug("同步消息__没有取得支付记录信息");
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, "没有取得支付记录信息.");
 				return "failure";
 			}
-			log.debug("同步处理2");
+			
 			int recordsId = (Integer) payRecord.get("records_id");
 			Integer payway_id = (Integer)payRecord.get("payway_id");
 			Integer serviceId = (Integer)payRecord.get("service_id");
 			// 根据支付通道payway_id，获取支付通道信息payInterface
 			BcsupgServiceInterfaceDomain siDomain= serviceService.getServiceInterfaceDomain(serviceId);
 			if(siDomain==null){
+				log.debug("同步消息__没有对应的服务信息");
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, "没有对应的服务信息.");
 				return "failure";
 			}
-			log.debug("同步处理3");
+			
 			Map<String, Object> params2 = new HashMap<String, Object>();
 			params2.put("payway_id", payway_id);
 			Map<String, Object>payInterface = pay3Service.getPay3Interface(params2);
 			if(payInterface == null){
+				log.debug("同步消息__没有对应的支付接口");
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, "没有对应的支付接口.");
 				return "failure";
 			}
-			log.debug("同步处理4");
+			
 			String  payClassName = (String)payInterface.get("pay_process_class");
 			Pay3Interface pay3Interface = (Pay3Interface)(Class.forName(payClassName).newInstance());
 			OutFPayResultMsg outFPayResultMsg = pay3Interface.getProtocolTrans().createPayResult(paramMap);
 			outFPayResultMsg.setOpSn(opt_sn);
 			outFPayResultMsg.setOrgData(paramMap);
 			if(outFPayResultMsg.getPayResult() == IConstants.PAY_RESULT_SUCCESS){
-				log.debug("同步返回消息处理中，更新支付记录表信息 处理成功");
+				log.debug("同步消息__同步返回消息处理中，更新支付记录表信息 处理成功");
 				//更新支付记录表信息 处理成功
 				tradeService.updatePayDealStatus(recordsId, IConstants.PAY_DEAL_STATUS_SUCCESS);
 				
@@ -125,18 +129,18 @@ public class PayResultReturnListenerAction extends BaseAction {
 				returnData.put("biz_back_params", payRecord.get("biz_back_params"));
 				request.setAttribute(IConstants.FPAY_RETURN_URL, payRecord.get("return_url"));
 				request.setAttribute(IConstants.FPAY_RETURN_DATA,returnData);
-				log.debug("将要发送给商户的数据是" + returnData);
+				log.debug("同步消息__将要发送给商户的数据是" + returnData);
 				return "goSuccessReturn";
 			}else{
-				log.debug("更新支付记录表信息 支付失败");
+				log.debug("同步消息__更新支付记录表信息 支付失败");
 				//更新支付记录表信息 支付失败
 				tradeService.updatePayDealStatus(recordsId, IConstants.PAY_DEAL_STATUS_FAILD);
-				
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, outFPayResultMsg.getPayResultInfo());
 				return "goFaildReturn";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("同步消息__系统超时." + e.getMessage());
 			request.setAttribute(IConstants.FPAY_EEROR_MSG,  "系统超时."+e.getMessage());
 			return "failure";
 		}
