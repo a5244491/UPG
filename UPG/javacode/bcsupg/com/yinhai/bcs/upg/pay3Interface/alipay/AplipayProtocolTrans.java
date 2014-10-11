@@ -122,7 +122,7 @@ public class AplipayProtocolTrans implements Pay3ProtocolTrans{
 
 	@Override
 	public boolean checkSign(HttpServletRequest request,
-			Map<String, String> paramMap, HttpServletResponse response) {
+			Map<String, String> paramMap) {
 		// TODO Auto-generated method stub
 		return true;
 	}

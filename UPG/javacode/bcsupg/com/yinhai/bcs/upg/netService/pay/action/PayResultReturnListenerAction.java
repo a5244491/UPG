@@ -120,6 +120,7 @@ public class PayResultReturnListenerAction extends BaseAction {
 				Map<String,Object> returnData = new HashMap<String,Object>();
 				returnData.put("clientId", payRecord.get("client_id"));
 				returnData.put("serviceId", payRecord.get("service_id"));
+				// 理论上应该进行签名的
 				returnData.put("signData","");
 				returnData.put("opSn", payRecord.get("opt_sn"));
 				returnData.put("trade_sn", payRecord.get("trade_sn"));
@@ -129,7 +130,7 @@ public class PayResultReturnListenerAction extends BaseAction {
 				returnData.put("biz_back_params", payRecord.get("biz_back_params"));
 				request.setAttribute(IConstants.FPAY_RETURN_URL, payRecord.get("return_url"));
 				request.setAttribute(IConstants.FPAY_RETURN_DATA,returnData);
-				log.debug("同步消息__将要发送给商户的数据是" + returnData);
+				log.debug("同步消息__将要发送给商家的数据是" + returnData);
 				return "goSuccessReturn";
 			}else{
 				log.debug("同步消息__更新支付记录表信息 支付失败");

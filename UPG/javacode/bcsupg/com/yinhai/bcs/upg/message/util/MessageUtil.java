@@ -1,14 +1,19 @@
 package com.yinhai.bcs.upg.message.util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.google.gson.Gson;
@@ -18,6 +23,7 @@ import com.yinhai.bcs.upg.message.common.RspUPGMessage;
 import com.yinhai.bcs.upg.message.common.RspUPGMsgHeader;
 import com.yinhai.bcs.upg.message.pay.PayUPGReqMsg;
 import com.yinhai.bcs.upg.message.pay.PayUPGRspMsg;
+import com.yinhai.bcs.upg.pay3Interface.llpay.secu.Base64;
 
 public class MessageUtil {
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -178,7 +184,7 @@ public class MessageUtil {
 		String returnStr = null;
 		// modify by CQ
 		// returnStr = serviceId + clientId + t + n;
-		returnStr = serviceId + clientId + t + getSerial()+ random.nextInt(9);
+		returnStr = serviceId + clientId + t + getSerial() + random.nextInt(9);
 		// returnStr = serviceId + clientId + t +
 		// UUID.randomUUID().toString().toUpperCase().replace("-", "");
 		return returnStr;
@@ -367,7 +373,6 @@ public class MessageUtil {
 
 	// 服务ID+客户端ID+流水号+订单号+交易金额 顺序要准确
 	public static String signFPayMessage(Map<String, String> reqParam, String privateCertPath, String certPwd) {
-
 		String signOrgStr = "";
 		signOrgStr += reqParam.get("service_id");
 		signOrgStr += reqParam.get("client_id");
@@ -375,14 +380,58 @@ public class MessageUtil {
 		signOrgStr += reqParam.get("trade_sn");
 		signOrgStr += reqParam.get("trade_balance");
 		String signData = "";
-
 		try {
 			signData = CertUtil.signStr(signOrgStr, privateCertPath, certPwd);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return signData;
+	}
+	
+	public static String readFile(String filePath) {
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			br = new BufferedReader(new FileReader(filePath));
+			String data = br.readLine();//一次读入一行，直到读入null为文件结束  
+			while( data != null) {  
+				 sb.append(data);
+			      data = br.readLine(); //接着读下一行  
+			} 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  finally{
+			try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return sb.toString();
+	}
+
+	// 服务ID+客户端ID+流水号+订单号+交易金额 顺序要准确
+	public static String signFPayMessageRSA(Map<String, String> reqParam, String prikeyvalue) {
+		String signOrgStr = "";
+		signOrgStr += reqParam.get("service_id");
+		signOrgStr += reqParam.get("client_id");
+		signOrgStr += reqParam.get("opt_sn");
+		signOrgStr += reqParam.get("trade_sn");
+		signOrgStr += reqParam.get("trade_balance");
+		try {
+			PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(Base64.getBytesBASE64(prikeyvalue));
+			KeyFactory keyf = KeyFactory.getInstance("RSA");
+			PrivateKey myprikey = keyf.generatePrivate(priPKCS8);
+			// 用私钥对信息生成数字签名
+			java.security.Signature signet = java.security.Signature.getInstance("MD5withRSA");
+			signet.initSign(myprikey);
+			signet.update(signOrgStr.getBytes("UTF-8"));
+			byte[] signed = signet.sign(); // 对信息的数字签名
+			return new String(org.apache.commons.codec.binary.Base64.encodeBase64(signed));
+		} catch (java.lang.Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -474,5 +523,3 @@ public class MessageUtil {
 		return object;
 	}
 }
-
-

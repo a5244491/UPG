@@ -31,10 +31,12 @@
 					paramMap.put("trade_sn",request.getParameter("trade_sn"));
 					paramMap.put("trade_balance",request.getParameter("trade_balance"));
 					
+					
 					//String signData=MessageUtil.signFPayMessage(paramMap,"/home/cq/test/colmscs@100000000000001.p12","colmscs123456");
+					String signData=MessageUtil.signFPayMessageRSA(paramMap, MessageUtil.readFile("/home/cq/.ssh/rsa_pri_pkcs8.pem"));
 				 %>
 				
-				<input size="30" name="sign_data" value="<%="signData" %>" />
+				<input size="30" name="sign_data" value="<%=signData%>" />
 				<input size="30" name="return_url" value="<%=request.getParameter("return_url") %>" />
 				<input size="30" name="notify_url" value="<%=request.getParameter("notify_url") %>" />
 				<input size="30" name="default_bank" value="<%=request.getParameter("default_bank") %>" />

@@ -20,6 +20,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Node;
 
+import com.yinhai.bcs.upg.pay3Interface.llpay.secu.Base64;
+
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 import sun.security.rsa.RSAPublicKeyImpl;
@@ -41,6 +43,11 @@ public class RSAUtil {
 
 	public static PublicKey getPublicKey(String key) throws Exception {
 
+//		X509EncodedKeySpec bobPubKeySpec = new X509EncodedKeySpec(
+//                Base64.getBytesBASE64(key));
+//        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+//        PublicKey publicKey = keyFactory.generatePublic(bobPubKeySpec);
+//         
 		byte[] keyBytes;
 
 		keyBytes = (new BASE64Decoder()).decodeBuffer(key);

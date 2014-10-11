@@ -95,7 +95,7 @@ public class PayResultNoticeListenerAction extends BaseAction {
 
 			// add by CQ 应该在这里进行验证
 			Pay3ProtocolTrans ppt = pay3Interface.getProtocolTrans();
-			if (!ppt.checkSign(request, paramMap, response)) {
+			if (!ppt.checkSign(request, paramMap)) {
 				log.debug("异步处理__支付异步通知验签失败");
 				request.setAttribute(IConstants.FPAY_EEROR_MSG, "支付异步通知验签失败");
 				return "failure";

@@ -27,5 +27,6 @@ public interface Pay3ProtocolTrans {
 	
 	public String createFPayNoticeReturnStr (OutFPayResultMsg rspMsg);
 	public boolean checkSign(HttpServletRequest request,
-			Map<String, String> paramMap, HttpServletResponse response);
+			Map<String, String> paramMap);
+	
 }

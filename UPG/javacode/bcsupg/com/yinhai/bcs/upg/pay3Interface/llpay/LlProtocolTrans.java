@@ -105,7 +105,7 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 	}
 
 	@Override
-	public boolean checkSign(HttpServletRequest request, Map<String, String> paramMap, HttpServletResponse response) {
+	public boolean checkSign(HttpServletRequest request, Map<String, String> paramMap) {
 		
 		try {
 			// String reqStr = LLPayUtil.readReqStr(request);

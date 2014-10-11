@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 //import com.yinhai.bcs.sdb.common.message.ReqSDBMessageHeader;
 //import com.yinhai.bcs.sdb.common.message.RspSDBMessage;
@@ -115,10 +116,8 @@ public class VirtualProtocolTrans implements Pay3ProtocolTrans{
 		return null;
 	}
 
-	@Override
 	public boolean checkSign(HttpServletRequest request, Map<String, String> paramMap) {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
 }

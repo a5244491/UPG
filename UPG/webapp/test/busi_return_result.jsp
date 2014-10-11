@@ -14,7 +14,7 @@
 						if(requsetMap.get(key).length > 0){
 							
 				            String[] value = requsetMap.get(key);
-				            sbHtml.append("<label>"+ key +"</label><input name=\"" + key + "\" value=\"" + value + "\"/> </br>");
+				            sbHtml.append("<label>"+ key +"</label><input name=\"" + key + "\" value=\"" + value[0] + "\"/> </br>");
 				            //map.put(key, requsetMap.get(key)[0]);
 						}
 					}
