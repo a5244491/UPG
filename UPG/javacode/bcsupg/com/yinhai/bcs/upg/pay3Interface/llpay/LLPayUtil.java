@@ -31,7 +31,6 @@ import com.yinhai.bcs.upg.pay3Interface.llpay.secu.TraderRSAUtil;
  * 
  */
 public class LLPayUtil {
-
 	protected final static Log log = LogFactory.getLog(LLPayUtil.class);
 
 	/**
@@ -149,16 +148,16 @@ public class LLPayUtil {
 	 * @return
 	 */
 	public static boolean checkSign(Map<String, String> paramMap, String rsa_public, String md5_key) {
-		//JSONObject reqObj = JSON.parseObject(reqStr);
+		// JSONObject reqObj = JSON.parseObject(reqStr);
 		JSONObject reqObj = (JSONObject) JSON.toJSON(paramMap);
 		if (reqObj == null)
 			return false;
-//		if (reqObj == null) {
-//			reqObj = (JSONObject) JSON.toJSON(paramMap);
-//			// reqObj = JSON.parseObject(paramMap.toString());
-//			if (reqObj == null)
-//				return false;
-//		}
+		// if (reqObj == null) {
+		// reqObj = (JSONObject) JSON.toJSON(paramMap);
+		// // reqObj = JSON.parseObject(paramMap.toString());
+		// if (reqObj == null)
+		// return false;
+		// }
 		String sign_type = reqObj.getString("sign_type");
 		if (SignTypeEnum.MD5.getCode().equals(sign_type)) {
 			return checkSignMD5(reqObj, md5_key);
@@ -175,26 +174,25 @@ public class LLPayUtil {
 	 * @author guoyx
 	 */
 	private static boolean checkSignRSA(JSONObject reqObj, String rsa_public) {
-
-		System.out.println("进入商户[" + reqObj.getString("oid_partner") + "]RSA签名验证");
+		log.debug("进入商户[" + reqObj.getString("oid_partner") + "]RSA签名验证");
 		if (reqObj == null) {
 			return false;
 		}
 		String sign = reqObj.getString("sign");
 		// 生成待签名串
 		String sign_src = genSignData(reqObj);
-		System.out.println("商户[" + reqObj.getString("oid_partner") + "]待签名原串" + sign_src);
-		System.out.println("商户[" + reqObj.getString("oid_partner") + "]签名串" + sign);
+		log.debug("商户[" + reqObj.getString("oid_partner") + "]待签名原串" + sign_src);
+		log.debug("商户[" + reqObj.getString("oid_partner") + "]签名串" + sign);
 		try {
 			if (TraderRSAUtil.checksign(rsa_public, sign_src, sign)) {
-				System.out.println("商户[" + reqObj.getString("oid_partner") + "]RSA签名验证通过");
+				log.debug("商户[" + reqObj.getString("oid_partner") + "]RSA签名验证通过");
 				return true;
 			} else {
-				System.out.println("商户[" + reqObj.getString("oid_partner") + "]RSA签名验证未通过");
+				log.debug("商户[" + reqObj.getString("oid_partner") + "]RSA签名验证未通过");
 				return false;
 			}
 		} catch (Exception e) {
-			System.out.println("商户[" + reqObj.getString("oid_partner") + "]RSA签名验证异常" + e.getMessage());
+			log.debug("商户[" + reqObj.getString("oid_partner") + "]RSA签名验证异常" + e.getMessage());
 			return false;
 		}
 	}
@@ -208,7 +206,6 @@ public class LLPayUtil {
 	 * @author guoyx
 	 */
 	private static boolean checkSignMD5(JSONObject reqObj, String md5_key) {
-		System.out.println("进入商户[" + reqObj.getString("oid_partner") + "]MD5签名验证");
 		log.debug("进入商户[" + reqObj.getString("oid_partner") + "]MD5签名验证");
 		if (reqObj == null) {
 			return false;
@@ -217,23 +214,18 @@ public class LLPayUtil {
 		// 生成待签名串
 		String sign_src = genSignData(reqObj);
 		log.debug("商户[" + reqObj.getString("oid_partner") + "]待签名原串" + sign_src);
-		System.out.println("商户[" + reqObj.getString("oid_partner") + "]待签名原串" + sign_src);
 		log.debug("商户[" + reqObj.getString("oid_partner") + "]签名串" + sign);
-		System.out.println("商户[" + reqObj.getString("oid_partner") + "]签名串" + sign);
 		sign_src += "&key=" + md5_key;
 		try {
 			if (sign.equals(Md5Algorithm.getInstance().md5Digest(sign_src.getBytes("utf-8")))) {
 				log.debug("商户[" + reqObj.getString("oid_partner") + "]MD5签名验证通过");
-				System.out.println("商户[" + reqObj.getString("oid_partner") + "]MD5签名验证通过");
 				return true;
 			} else {
 				log.debug("商户[" + reqObj.getString("oid_partner") + "]MD5签名验证未通过");
-				System.out.println("商户[" + reqObj.getString("oid_partner") + "]MD5签名验证未通过");
 				return false;
 			}
 		} catch (UnsupportedEncodingException e) {
 			log.debug("商户[" + reqObj.getString("oid_partner") + "]MD5签名验证异常" + e.getMessage());
-			System.out.println("商户[" + reqObj.getString("oid_partner") + "]MD5签名验证异常" + e.getMessage());
 			return false;
 		}
 	}
@@ -247,17 +239,17 @@ public class LLPayUtil {
 	 * @author guoyx
 	 */
 	private static String addSignRSA(JSONObject reqObj, String rsa_private) {
-		System.out.println("进入商户[" + reqObj.getString("oid_partner") + "]RSA加签名");
+		log.debug("进入商户[" + reqObj.getString("oid_partner") + "]RSA加签名");
 		if (reqObj == null) {
 			return "";
 		}
 		// 生成待签名串
 		String sign_src = genSignData(reqObj);
-		System.out.println("商户[" + reqObj.getString("oid_partner") + "]加签原串" + sign_src);
+		log.debug("商户[" + reqObj.getString("oid_partner") + "]加签原串" + sign_src);
 		try {
 			return TraderRSAUtil.sign(rsa_private, sign_src);
 		} catch (Exception e) {
-			System.out.println("商户[" + reqObj.getString("oid_partner") + "]RSA加签名异常" + e.getMessage());
+			log.debug("商户[" + reqObj.getString("oid_partner") + "]RSA加签名异常" + e.getMessage());
 			return "";
 		}
 	}
@@ -271,18 +263,18 @@ public class LLPayUtil {
 	 * @author guoyx
 	 */
 	private static String addSignMD5(JSONObject reqObj, String md5_key) {
-		System.out.println("进入商户[" + reqObj.getString("oid_partner") + "]MD5加签名");
+		log.debug("进入商户[" + reqObj.getString("oid_partner") + "]MD5加签名");
 		if (reqObj == null) {
 			return "";
 		}
 		// 生成待签名串
 		String sign_src = genSignData(reqObj);
-		System.out.println("商户[" + reqObj.getString("oid_partner") + "]加签原串" + sign_src);
+		log.debug("商户[" + reqObj.getString("oid_partner") + "]加签原串" + sign_src);
 		sign_src += "&key=" + md5_key;
 		try {
 			return Md5Algorithm.getInstance().md5Digest(sign_src.getBytes("utf-8"));
 		} catch (Exception e) {
-			System.out.println("商户[" + reqObj.getString("oid_partner") + "]MD5加签名异常" + e.getMessage());
+			log.debug("商户[" + reqObj.getString("oid_partner") + "]MD5加签名异常" + e.getMessage());
 			return "";
 		}
 	}

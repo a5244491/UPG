@@ -46,12 +46,12 @@
 	<!--</bean>-->
 	<!-- 交易流水号缓存 JOB E -->
 
-	<!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="payResultNoticeOnceJobTrigger" />
-				<ref bean="optsnVerifyCacheClearJobTrigger" />
+				<!-- <ref bean="optsnVerifyCacheClearJobTrigger" /> -->
 			</list>
 		</property> 
-	</bean>-->
+	</bean>
 </beans>

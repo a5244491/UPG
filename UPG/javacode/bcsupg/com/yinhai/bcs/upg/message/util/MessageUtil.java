@@ -373,12 +373,7 @@ public class MessageUtil {
 
 	// 服务ID+客户端ID+流水号+订单号+交易金额 顺序要准确
 	public static String signFPayMessage(Map<String, String> reqParam, String privateCertPath, String certPwd) {
-		String signOrgStr = "";
-		signOrgStr += reqParam.get("service_id");
-		signOrgStr += reqParam.get("client_id");
-		signOrgStr += reqParam.get("opt_sn");
-		signOrgStr += reqParam.get("trade_sn");
-		signOrgStr += reqParam.get("trade_balance");
+		String signOrgStr = geneFpayMsg(reqParam);
 		String signData = "";
 		try {
 			signData = CertUtil.signStr(signOrgStr, privateCertPath, certPwd);
@@ -411,13 +406,8 @@ public class MessageUtil {
 	}
 
 	// 服务ID+客户端ID+流水号+订单号+交易金额 顺序要准确
-	public static String signFPayMessageRSA(Map<String, String> reqParam, String prikeyvalue) {
-		String signOrgStr = "";
-		signOrgStr += reqParam.get("service_id");
-		signOrgStr += reqParam.get("client_id");
-		signOrgStr += reqParam.get("opt_sn");
-		signOrgStr += reqParam.get("trade_sn");
-		signOrgStr += reqParam.get("trade_balance");
+	public static String signFPayMessageRSA(String signOrgStr, String prikeyvalue) {
+		//String signOrgStr = geneFpayMsg(reqParam);
 		try {
 			PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(Base64.getBytesBASE64(prikeyvalue));
 			KeyFactory keyf = KeyFactory.getInstance("RSA");
@@ -434,6 +424,16 @@ public class MessageUtil {
 		return null;
 	}
 
+	public static String geneFpayMsg(Map<String, String> reqParam) {
+		String signOrgStr = "";
+		signOrgStr += reqParam.get("service_id");
+		signOrgStr += reqParam.get("client_id");
+		signOrgStr += reqParam.get("opt_sn");
+		signOrgStr += reqParam.get("trade_sn");
+		signOrgStr += reqParam.get("trade_balance");
+		return signOrgStr;
+	}
+
 	/**
 	 * 验证签名 服务ID+客户端ID+流水号+订单号+交易金额 顺序要准确
 	 * 
@@ -442,12 +442,7 @@ public class MessageUtil {
 	 */
 	public static boolean verifyFPaySign(Map<String, String> reqParam, String signData, String clientPubKey) {
 
-		String signOrgStr = "";
-		signOrgStr += reqParam.get("service_id");
-		signOrgStr += reqParam.get("client_id");
-		signOrgStr += reqParam.get("opt_sn");
-		signOrgStr += reqParam.get("trade_sn");
-		signOrgStr += reqParam.get("trade_balance");
+		String signOrgStr = geneFpayMsg(reqParam);
 		boolean result = false;
 		try {
 			PublicKey publicKey = RSAUtil.getPublicKey(clientPubKey);

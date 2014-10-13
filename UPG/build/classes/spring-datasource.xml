@@ -23,6 +23,7 @@
          <property name="OID_PARTNER" value="${llpay.OID_PARTNER}" />
          <property name="VERSION" value="${llpay.VERSION}" />
          <property name="BUSI_PARTNER" value="${llpay.BUSI_PARTNER}" />
+         <property name="TRADER_PRI_KEY" value="${llpay.TRADER_PRI_KEY}" />
          <!-- <property name="productId">
              <bean class="java.lang.Long">
                  <constructor-arg index="0" value="${product.id}" />

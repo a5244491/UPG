@@ -7,6 +7,7 @@ public class NoticeOnceTaskQueue {
 	private static List<Integer> noticeTaskList=new ArrayList<Integer>();
 	public  static void putTask(int recordsId) {
 		synchronized (NoticeOnceTaskQueue.class) {
+			System.out.println(" 当前队列任务数目： " + noticeTaskList.size());
 			noticeTaskList.add(recordsId);
 		}
 	}

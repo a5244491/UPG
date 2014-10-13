@@ -37,7 +37,7 @@
 			<dt>同步返回地址：</dt>
 				<input size="30" name="return_url" value="/UPG/test/busi_return_result.jsp" />*
 			<dt>异步通知地址：</dt>
-				<input size="30" name="notify_url" value="/UPG/test/busi_notify_result.jsp" />*
+				<input size="30" name="notify_url" value="http://nat.nat123.net:25458/UPG/test/busi_notify_result.jsp" />*
 			<br>
 			<button type="submit">确 认</button>
 		</form>

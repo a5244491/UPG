@@ -33,7 +33,7 @@
 					
 					
 					//String signData=MessageUtil.signFPayMessage(paramMap,"/home/cq/test/colmscs@100000000000001.p12","colmscs123456");
-					String signData=MessageUtil.signFPayMessageRSA(paramMap, MessageUtil.readFile("/home/cq/.ssh/rsa_pri_pkcs8.pem"));
+					String signData=MessageUtil.signFPayMessageRSA(MessageUtil.geneFpayMsg(paramMap), MessageUtil.readFile("/home/cq/.ssh/rsa_pri_pkcs8.pem"));
 				 %>
 				
 				<input size="30" name="sign_data" value="<%=signData%>" />
