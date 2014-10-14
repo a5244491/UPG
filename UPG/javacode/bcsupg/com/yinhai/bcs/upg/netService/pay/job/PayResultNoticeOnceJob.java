@@ -65,6 +65,7 @@ public class PayResultNoticeOnceJob {
 						NoticeOnceTaskQueue.removeTask(recordId);
 						log.debug("第" + count_i+ "次通知成功，移除任务号:" + recordId + "__对应发送的消息:" + postData);
 					} else {
+						log.debug("第" + count_i+ "次通知失败，任务号:" + recordId + "__对应发送的消息:" + postData +" __对应响应消息:" + data);
 						payRecordsService.updateNoticeStatus(recordId, IConstants.PAY_NOTICE_STATUS_FAILURE);
 						payRecordsService.updateNoticeCount(recordId, IConstants.UPG_NOTICE_COUNT_PARAM);
 					}
@@ -77,8 +78,7 @@ public class PayResultNoticeOnceJob {
 						ex.printStackTrace();
 					}
 				}
-				// 通知次数超过8次移除任务消息
-				
+				// 通知次数超过制定的次数移除任务消息
 				if (count_i > IConstants.UPG_NOTICE_COUNT_MAXLI) {
 					NoticeOnceTaskQueue.removeTask(recordId);
 					log.debug("通知次数超过" + IConstants.UPG_NOTICE_COUNT_MAXLI + "次移除任务消息" + postData);

@@ -31,9 +31,7 @@
 				<input size="30" name="pay_account" value="3" />（可空，根据业务情况填写）		
 			<dt>收款虚拟子账户账号：</dt>
 				<input size="30" name="receive_account" value="1" />（可空，根据业务情况填写）	
-			<dt>签名：</dt>
-				<input size="30" name="sign_data" value="1234qwerasdfzxcv" />*(使用客户端私钥签名)
-			<br>
+			
 			<dt>同步返回地址：</dt>
 				<input size="30" name="return_url" value="/UPG/test/busi_return_result.jsp" />*
 			<dt>异步通知地址：</dt>
