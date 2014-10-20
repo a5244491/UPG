@@ -9,7 +9,7 @@ import java.io.Serializable;
 * @version :1.0
 *
 */
- class  PartnerConfig implements Serializable {
+ public class  PartnerConfig implements Serializable {
     // 银通公钥
     private String YT_PUB_KEY;//     = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCSS/DiwdCf/aZsxxcacDnooGph3d2JOj5GXWi+q3gznZauZjkNP8SKl3J2liP0O6rU/Y/29+IUe+GTMhMOFJuZm1htAtKiu5ekW0GlBMWxf4FPkYlQkPE0FtaoMP3gYfh+OwI+fIRrpW3ySn3mScnc6Z700nU/VYrRkfcSCbSnRwIDAQAB";
     // 商户私钥

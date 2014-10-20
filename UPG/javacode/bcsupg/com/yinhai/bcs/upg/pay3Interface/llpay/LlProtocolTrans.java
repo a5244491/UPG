@@ -1,12 +1,10 @@
 package com.yinhai.bcs.upg.pay3Interface.llpay;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.yinhai.bcs.upg.common.util.IConstants;
 import com.yinhai.bcs.upg.common.util.SpringContextUtil;
 import com.yinhai.bcs.upg.message.pay.PayUPGReqMsg;
+import com.yinhai.bcs.upg.message.util.SignUtil;
 import com.yinhai.bcs.upg.pay3Interface.Pay3ProtocolTrans;
 import com.yinhai.bcs.upg.pay3Interface.common.msg.OutFPayResultMsg;
 
@@ -59,7 +58,7 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 		paymentInfo.setSign_type(pConfig.getSIGN_TYPE()); // 签名方式 RSA 或者
 															// MD5 必录*
 		// 加签名
-		String sign = LLPayUtil.addSign(JSON.parseObject(JSON.toJSONString(paymentInfo)), pConfig.getTRADER_PRI_KEY(),
+		String sign = SignUtil.addSign(JSON.parseObject(JSON.toJSONString(paymentInfo)), pConfig.getTRADER_PRI_KEY(),
 				pConfig.getMD5_KEY());
 		paymentInfo.setSign(sign); // 签名
 		// String sign = LLPayUtil.addSignRSA(JSON.parseObject(JSON
@@ -113,7 +112,7 @@ public class LlProtocolTrans implements Pay3ProtocolTrans {
 			// temp.putAll(paramMap);
 			// changeMap(temp);
 
-			if (!LLPayUtil.checkSign(paramMap, pConfig.getYT_PUB_KEY(), pConfig.getMD5_KEY())) {
+			if (!SignUtil.checkSign(paramMap, pConfig.getYT_PUB_KEY(), pConfig.getMD5_KEY())) {
 				log.debug("连连支付异步通知验签失败");
 				System.out.println("连连支付异步通知验签失败");
 				return false;

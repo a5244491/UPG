@@ -9,15 +9,22 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.yinhai.bcs.entity.domain.BcsupgServiceInterfaceDomain;
 import com.yinhai.bcs.upg.common.util.IConstants;
 import com.yinhai.bcs.upg.common.util.ParamUtil;
+import com.yinhai.bcs.upg.common.util.SpringContextUtil;
 import com.yinhai.bcs.upg.dbservice.Pay3Service;
 import com.yinhai.bcs.upg.dbservice.PayRecordsService;
 import com.yinhai.bcs.upg.dbservice.ServiceService;
+import com.yinhai.bcs.upg.message.util.BusiTradeConfig;
 import com.yinhai.bcs.upg.message.util.MessageUtil;
+import com.yinhai.bcs.upg.message.util.SignUtil;
 import com.yinhai.bcs.upg.pay3Interface.Pay3Interface;
 import com.yinhai.bcs.upg.pay3Interface.common.msg.OutFPayResultMsg;
+import com.yinhai.bcs.upg.pay3Interface.llpay.LLPayUtil;
+import com.yinhai.bcs.upg.pay3Interface.llpay.PartnerConfig;
 import com.yinhai.sysframework.util.DateUtil;
 import com.yinhai.webframework.BaseAction;
 
@@ -54,6 +61,7 @@ import com.yinhai.webframework.BaseAction;
 					@Result(name = "goFaildReturn", location = "/return/goFaildReturn.jsp")				
 })
 public class PayResultReturnListenerAction extends BaseAction {
+	BusiTradeConfig busiTradeConfig = (BusiTradeConfig) SpringContextUtil.getBean("lytradeConfig");
 	protected final Log log = LogFactory.getLog(getClass());
 	private ServiceService serviceService = (ServiceService) getService("serviceService");
 	private PayRecordsService tradeService = (PayRecordsService) getService("payRecordsService");
@@ -118,16 +126,22 @@ public class PayResultReturnListenerAction extends BaseAction {
 				tradeService.updatePayDealStatus(recordsId, IConstants.PAY_DEAL_STATUS_SUCCESS);
 				
 				Map<String,Object> returnData = new HashMap<String,Object>();
-				returnData.put("clientId", payRecord.get("client_id"));
-				returnData.put("serviceId", payRecord.get("service_id"));
-				// 理论上应该进行签名的
-				returnData.put("signData","");
-				returnData.put("opSn", payRecord.get("opt_sn"));
+				returnData.put("client_id", payRecord.get("client_id"));
+				returnData.put("service_id", payRecord.get("service_id"));
+				
+				returnData.put("opt_sn", payRecord.get("opt_sn"));
 				returnData.put("trade_sn", payRecord.get("trade_sn"));
-				returnData.put("pay_deal_status",IConstants.PAY_DEAL_STATUS_SUCCESS);
+				returnData.put("pay_deal_status", IConstants.PAY_DEAL_STATUS_SUCCESS);
 				//1--未处理，2-处理成功，3-处理失败
 				returnData.put("pay_result", outFPayResultMsg.getPayResult());
 				returnData.put("biz_back_params", payRecord.get("biz_back_params"));
+				
+				returnData.put("sign_type","RSA");
+				// 理论上应该进行签名的
+				String sing_src = SignUtil.genSignData((JSONObject) JSONObject.toJSON(returnData));
+				String sign = SignUtil.addSignRSA(sing_src, busiTradeConfig.getTRADER_PRI_KEY());
+				returnData.put("sign", sign);
+				
 				request.setAttribute(IConstants.FPAY_RETURN_URL, payRecord.get("return_url"));
 				request.setAttribute(IConstants.FPAY_RETURN_DATA,returnData);
 				log.debug("同步消息__将要发送给商家的数据是" + returnData);

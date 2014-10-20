@@ -2,6 +2,8 @@
 <%@page import="com.yinhai.bcs.upg.message.util.MessageUtil"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
+<%@page import="com.yinhai.bcs.upg.common.util.SpringContextUtil"%>
+<%@page import="com.yinhai.bcs.upg.pay3Interface.llpay.PartnerConfig"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
@@ -33,7 +35,10 @@
 					
 					
 					//String signData=MessageUtil.signFPayMessage(paramMap,"/home/cq/test/colmscs@100000000000001.p12","colmscs123456");
-					String signData=MessageUtil.signFPayMessageRSA(MessageUtil.geneFpayMsg(paramMap), MessageUtil.readFile("/home/cq/.ssh/rsa_pri_pkcs8.pem"));
+					String prikey = ( (PartnerConfig) SpringContextUtil.getBean("llpayConfig")).getTRADER_PRI_KEY();
+					System.out.println("客户私钥：" + prikey);
+					//String signData=MessageUtil.signFPayMessageRSA(MessageUtil.geneFpayMsg(paramMap), MessageUtil.readFile("/home/cq/.ssh/rsa_pri_pkcs8.pem"));
+					String signData=MessageUtil.signFPayMessageRSA(MessageUtil.geneFpayMsg(paramMap), prikey);
 				 %>
 				
 				<input size="30" name="sign_data" value="<%=signData%>" />

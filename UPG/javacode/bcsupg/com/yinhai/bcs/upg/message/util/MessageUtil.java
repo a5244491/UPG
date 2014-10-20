@@ -393,7 +393,7 @@ public class MessageUtil {
 				 sb.append(data);
 			      data = br.readLine(); //接着读下一行  
 			} 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}  finally{
 			try {

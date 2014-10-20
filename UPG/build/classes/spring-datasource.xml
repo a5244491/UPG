@@ -11,6 +11,7 @@
 				<value>classpath:jdbc.properties</value>
 				<value>classpath:tcas/tcas-client.properties</value>
 				<value>classpath:llpay.properties</value>
+				<value>classpath:lytrade.properties</value>
 				<!-- <value>classpath:redis_config.properties</value> -->
 			</list>
 		</property>
@@ -30,6 +31,12 @@
              </bean>
          </property>
           -->
+     </bean>
+     <bean id="lytradeConfig" class="com.yinhai.bcs.upg.message.util.BusiTradeConfig">
+         <property name="LY_PUB_KEY" value="${trade.LY_PUB_KEY}" />
+         <property name="SIGN_TYPE" value="${trade.SIGN_TYPE}" />
+         <property name="MD5_KEY" value="${trade.MD5_KEY}" />
+         <property name="TRADER_PRI_KEY" value="${trade.TRADER_PRI_KEY}" />
      </bean>
      
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

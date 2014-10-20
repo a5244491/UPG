@@ -5,9 +5,25 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.yinhai.bcs.upg.pay3Interface.llpay.LLPayUtil;
+import com.yinhai.bcs.upg.pay3Interface.llpay.enums.SignTypeEnum;
+import com.yinhai.bcs.upg.pay3Interface.llpay.secu.Md5Algorithm;
+import com.yinhai.bcs.upg.pay3Interface.llpay.secu.TraderRSAUtil;
 
 public class SignUtil
 {
+	protected final static Log log = LogFactory.getLog(SignUtil.class);
+	
 	private static final char[] bcdLookup = { '0', '1', '2', '3', '4', '5',
 		'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 	public static String SignData(String text,String priKey){ 
@@ -102,6 +118,210 @@ public class SignUtil
 	
 		return bytes;
 	}
+	
+	
+	
+	/**
+	 * str空判断
+	 * 
+	 * @param str
+	 * @return
+	 * @author guoyx
+	 */
+	public static boolean isnull(String str) {
+		if (null == str || str.equalsIgnoreCase("null") || str.equals("")) {
+			return true;
+		} else
+			return false;
+	}
+	
+	/**
+	 * 生成待签名串
+	 * 
+	 * @param paramMap
+	 * @return
+	 * @author guoyx
+	 */
+	public static String genSignData(JSONObject jsonObject) {
+		StringBuffer content = new StringBuffer();
+
+		// 按照key做首字母升序排列
+		List<String> keys = new ArrayList<String>(jsonObject.keySet());
+		Collections.sort(keys, String.CASE_INSENSITIVE_ORDER);
+		for (int i = 0; i < keys.size(); i++) {
+			String key = (String) keys.get(i);
+			if ("sign".equals(key)) {
+				continue;
+			}
+			String value = jsonObject.getString(key);
+			// 空串不参与签名
+			if (isnull(value)) {
+				continue;
+			}
+			content.append((i == 0 ? "" : "&") + key + "=" + value);
+		}
+		String signSrc = content.toString();
+		if (signSrc.startsWith("&")) {
+			signSrc = signSrc.replaceFirst("&", "");
+		}
+		return signSrc;
+	}
+
+	/**
+	 * 加签
+	 * 
+	 * @param reqObj
+	 * @param rsa_private
+	 * @param md5_key
+	 * @return
+	 * @author guoyx
+	 */
+	public static String addSign(JSONObject reqObj, String rsa_private, String md5_key) {
+		if (reqObj == null) {
+			return "";
+		}
+		String sign_type = reqObj.getString("sign_type");
+		String sign_src = genSignData(reqObj);
+		if (SignTypeEnum.MD5.getCode().equals(sign_type)) {
+			return addSignMD5(sign_src, md5_key);
+		} else {
+			return addSignRSA(sign_src, rsa_private);
+		}
+	}
+
+	/**
+	 * 签名验证
+	 * 
+	 * @param reqStr
+	 * @param paramMap
+	 * @return
+	 */
+	public static boolean checkSign(Map<String, String> paramMap, String rsa_public, String md5_key) {
+		// JSONObject reqObj = JSON.parseObject(reqStr);
+		JSONObject reqObj = (JSONObject) JSON.toJSON(paramMap);
+		if (reqObj == null)
+			return false;
+		// if (reqObj == null) {
+		// reqObj = (JSONObject) JSON.toJSON(paramMap);
+		// // reqObj = JSON.parseObject(paramMap.toString());
+		// if (reqObj == null)
+		// return false;
+		// }
+		String sign_type = reqObj.getString("sign_type");
+		String sign_src = genSignData(reqObj);
+		String sign = reqObj.getString("sign");
+		if (SignTypeEnum.MD5.getCode().equals(sign_type)) {
+			return checkSignMD5(sign_src, sign, md5_key);
+		} else {
+			return checkSignRSA(sign_src, sign, rsa_public);
+		}
+	}
+
+	/**
+	 * RSA签名验证
+	 * @param sign_src
+	 * @param sign
+	 * @param rsa_public
+	 * @return
+	 */
+	public static boolean checkSignRSA(String sign_src, String sign, String rsa_public) {
+		if (sign_src == null || sign == null) {
+			return false;
+		}
+		//String sign = reqObj.getString("sign");
+		// 生成待签名串
+		//String sign_src = genSignData(reqObj);
+		log.debug("待签名原串" + sign_src);
+		log.debug("签名串" + sign);
+		try {
+			if (TraderRSAUtil.checksign(rsa_public, sign_src, sign)) {
+				log.debug("待签名原串[" + sign_src + "]RSA签名验证通过");
+				return true;
+			} else {
+				log.debug("待签名原串[" + sign_src + "]RSA签名验证未通过");
+				return false;
+			}
+		} catch (Exception e) {
+			log.debug("待签名原串[" + sign_src + "]RSA签名验证异常" + e.getMessage());
+			return false;
+		}
+	}
+
+	/**
+	 * MD5签名验证
+	 * @param sign_src
+	 * @param sign
+	 * @param md5_key
+	 * @return
+	 */
+	public static boolean checkSignMD5(String sign_src, String sign,  String md5_key) {
+		if (sign_src == null) {
+			return false;
+		}
+		//String sign = reqObj.getString("sign");
+		// 生成待签名串
+		//String sign_src = genSignData(reqObj);
+		log.debug("待签名原串" + sign_src);
+		log.debug("验证签名串" + sign);
+		sign_src += "&key=" + md5_key;
+		try {
+			if (sign.equals(Md5Algorithm.getInstance().md5Digest(sign_src.getBytes("utf-8")))) {
+				log.debug("待签名原串[" + sign_src+ "]MD5签名验证通过");
+				return true;
+			} else {
+				log.debug("待签名原串[" + sign_src + "]MD5签名验证未通过");
+				return false;
+			}
+		} catch (UnsupportedEncodingException e) {
+			log.debug("待签名原串[" + sign_src + "]MD5签名验证异常" + e.getMessage());
+			return false;
+		}
+	}
+
+	/**
+	 *  RSA加签名
+	 * @param sign_src
+	 * @param rsa_private
+	 * @return
+	 */
+	public static String addSignRSA(String sign_src, String rsa_private) {
+		log.debug("进入商户[" + sign_src + "]RSA加签名");
+		if (sign_src == null) {
+			return "";
+		}
+		// 生成待签名串
+		//String sign_src = genSignData(reqObj);
+		try {
+			return TraderRSAUtil.sign(rsa_private, sign_src);
+		} catch (Exception e) {
+			log.debug("商户[" + sign_src + "]RSA加签名异常" + e.getMessage());
+			return "";
+		}
+	}
+
+	/**
+	 *  MD5加签名
+	 * @param sign_src
+	 * @param md5_key
+	 * @return
+	 */
+	public static String addSignMD5(String sign_src, String md5_key) {
+		log.debug("进入[" + sign_src + "]MD5加签名");
+		if (sign_src == null) {
+			return "";
+		}
+		// 生成待签名串
+		//String sign_src = genSignData(reqObj);
+		sign_src += "&key=" + md5_key;
+		try {
+			return Md5Algorithm.getInstance().md5Digest(sign_src.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.debug("[" + sign_src + "]MD5加签名异常" + e.getMessage());
+			return "";
+		}
+	}
+	
+	
 	public static void main(String[] args) throws UnsupportedEncodingException
 	{
 		String str="{\"recordCount\":5,\"mapList\":[{\"cardNo\":\"8601999900000001\",\"accountName\":\"\",\"accountBalance\":\"\",\"accountStatus\":\"\",\"accountType\":\"\",\"cardBinName\":\"测试卡Bin\",\"cusName\":\"test\"},{\"cardNo\":\"8601999900000002\",\"accountName\":\",\"accountBalance\":\"\",\"accountStatus\":\"\",\"accountType\":\"\",\"cardBinName\":\"测试卡Bin\",\"cusName\":\"test\"},{\"cardNo\":\"8601999900000005\",\"accountName\":\"\",\"accountBalance\":\"\",\"accountStatus\":\"\",\"accountType\":\"\",\"cardBinName\":\"测试卡Bin\",\"cusName\":\"\"},{\"cardNo\":\"8601999900000004\",\"accountName\":\"\",\"accountBalance\":\"\",\"accountStatus\":\"\",\"accountType\":\"\",\"cardBinName\":\"测试卡Bin\",\"cusName\":\"\"},{\"cardNo\":\"8601999900000003\",\"accountName\":\"\",\"accountBalance\":\"\",\"accountStatus\":\"\",\"accountType\":\"\",\"cardBinName\":\"测试卡Bin\",\"cusName\":\"ss\"}]}";

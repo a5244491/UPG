@@ -40,10 +40,11 @@ public class PayResultNoticeOnceJob {
 			domain = payRecordsService.getPayRecordDetailById(recordId);
 			if (domain != null) {
 				String postData = "";
-				postData += "clientId=" + domain.getClient_id() + "&";
-				postData += "serviceId=" + domain.getService_id() + "&";
-				postData += "signData=pwipws;lfja90jasi-aafda3&";
-				postData += "opSn=" + domain.getOpt_sn() + "&";
+				postData += "client_id=" + domain.getClient_id() + "&";
+				postData += "service_id=" + domain.getService_id() + "&";
+				postData += "sign_type=RSA&";//add bq CQ
+				postData += "sign=pwipws;lfja90jasi-aafda3&";
+				postData += "opt_sn=" + domain.getOpt_sn() + "&";
 				postData += "trade_sn=" + domain.getTrade_sn() + "&";
 				postData += "pay_deal_status=" + domain.getPay_deal_status() + "&";
 				postData += "pay_result=" + domain.getPay_result() + "&";
